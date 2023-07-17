@@ -62,6 +62,7 @@ public:
         BetterCalc temp = Digit + val;
         return temp;
     }
+    // there can be more copy of ^ this |-|*|/|
     void operator++()
     {
         ++Digit;
@@ -85,49 +86,43 @@ public:
     }
 };
 
+// outside of the class - only |+|
+BetterCalc operator+(const int &val, const BetterCalc &obj)
+{
+    return val + obj.getVal();
+}
+
 int main()
 {
     BetterCalc a(4), b(3.3);
-    //
     BetterCalc resultAdd = a + b;
     resultAdd.printVal();
-    //
     BetterCalc resultSub = a - b;
     resultSub.printVal();
-    //
     BetterCalc resultMul = a * b;
     resultMul.printVal();
-    //
     BetterCalc resultDiv = a / b;
     resultDiv.printVal();
-    //
     BetterCalc resultPow = a ^ b;
     resultPow.printVal();
-    //
     ++a;
     a.printVal();
-    //
     --b;
     b.printVal();
-    //
     a += b;
     a.printVal();
     a.setVal(5);
-    //
     a -= b;
     a.printVal();
     a.setVal(5);
-    //
     a *= b;
     a.printVal();
     a.setVal(5);
-    //
     a /= b;
     a.printVal();
     a.setVal(5);
-    //
     int c = 10;
-    std::cout << (a + c).getVal();
+    std::cout << (c + a).getVal();
 }
 
 /*
