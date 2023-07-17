@@ -2,8 +2,6 @@
 #include <string>
 #include <cmath>
 
-using namespace std;
-
 class BetterCalc
 {
 private:
@@ -39,6 +37,31 @@ public:
         BetterCalc temp = pow(Digit, obj.Digit);
         return temp;
     }
+    BetterCalc operator+=(const BetterCalc &obj)
+    {
+        Digit = Digit + obj.Digit;
+        return Digit;
+    }
+    BetterCalc operator-=(const BetterCalc &obj)
+    {
+        Digit = Digit - obj.Digit;
+        return Digit;
+    }
+    BetterCalc operator*=(const BetterCalc &obj)
+    {
+        Digit = Digit * obj.Digit;
+        return Digit;
+    }
+    BetterCalc operator/=(const BetterCalc &obj)
+    {
+        Digit = Digit / obj.Digit;
+        return Digit;
+    }
+    BetterCalc operator+(const int &val)
+    {
+        BetterCalc temp = Digit + val;
+        return temp;
+    }
     void operator++()
     {
         ++Digit;
@@ -51,24 +74,60 @@ public:
     {
         return Digit;
     }
+    int setVal(float val)
+    {
+        Digit = val;
+        return 0;
+    }
+    void printVal()
+    {
+        std::cout << "Digit = " << Digit << std::endl;
+    }
 };
 
 int main()
 {
     BetterCalc a(4), b(3.3);
+    //
     BetterCalc resultAdd = a + b;
-    cout << resultAdd.getVal() << endl;
+    resultAdd.printVal();
+    //
     BetterCalc resultSub = a - b;
-    cout << resultSub.getVal() << endl;
+    resultSub.printVal();
+    //
     BetterCalc resultMul = a * b;
-    cout << resultMul.getVal() << endl;
+    resultMul.printVal();
+    //
     BetterCalc resultDiv = a / b;
-    cout << resultDiv.getVal() << endl;
+    resultDiv.printVal();
+    //
     BetterCalc resultPow = a ^ b;
-    cout << resultPow.getVal() << endl;
+    resultPow.printVal();
+    //
     ++a;
+    a.printVal();
+    //
     --b;
-    cout << a.getVal() << " " << b.getVal() << endl;
+    b.printVal();
+    //
+    a += b;
+    a.printVal();
+    a.setVal(5);
+    //
+    a -= b;
+    a.printVal();
+    a.setVal(5);
+    //
+    a *= b;
+    a.printVal();
+    a.setVal(5);
+    //
+    a /= b;
+    a.printVal();
+    a.setVal(5);
+    //
+    int c = 10;
+    std::cout << (a + c).getVal();
 }
 
 /*
