@@ -37,25 +37,25 @@ public:
         BetterCalc temp = pow(Digit, obj.Digit);
         return temp;
     }
-    BetterCalc operator+=(const BetterCalc &obj)
+    BetterCalc &operator+=(const BetterCalc &obj)
     {
         Digit = Digit + obj.Digit;
-        return Digit;
+        return *this;
     }
-    BetterCalc operator-=(const BetterCalc &obj)
+    BetterCalc &operator-=(const BetterCalc &obj)
     {
         Digit = Digit - obj.Digit;
-        return Digit;
+        return *this;
     }
-    BetterCalc operator*=(const BetterCalc &obj)
+    BetterCalc &operator*=(const BetterCalc &obj)
     {
         Digit = Digit * obj.Digit;
-        return Digit;
+        return *this;
     }
-    BetterCalc operator/=(const BetterCalc &obj)
+    BetterCalc &operator/=(const BetterCalc &obj)
     {
         Digit = Digit / obj.Digit;
-        return Digit;
+        return *this;
     }
     BetterCalc operator+(const int &val)
     {
