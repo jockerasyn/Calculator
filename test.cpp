@@ -1,6 +1,77 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 
+using namespace std;
+
+class BetterCalc
+{
+private:
+    float Digit;
+
+public:
+    BetterCalc(float val)
+    {
+        Digit = val;
+    }
+    BetterCalc operator+(const BetterCalc &obj)
+    {
+        BetterCalc temp = Digit + obj.Digit;
+        return temp;
+    }
+    BetterCalc operator-(const BetterCalc &obj)
+    {
+        BetterCalc temp = Digit - obj.Digit;
+        return temp;
+    }
+    BetterCalc operator*(const BetterCalc &obj)
+    {
+        BetterCalc temp = Digit * obj.Digit;
+        return temp;
+    }
+    BetterCalc operator/(const BetterCalc &obj)
+    {
+        BetterCalc temp = Digit / obj.Digit;
+        return temp;
+    }
+    BetterCalc operator^(const BetterCalc &obj)
+    {
+        BetterCalc temp = pow(Digit, obj.Digit);
+        return temp;
+    }
+    void operator++()
+    {
+        ++Digit;
+    }
+    void operator--()
+    {
+        --Digit;
+    }
+    float getVal() const
+    {
+        return Digit;
+    }
+};
+
+int main()
+{
+    BetterCalc a(4), b(3.3);
+    BetterCalc resultAdd = a + b;
+    cout << resultAdd.getVal() << endl;
+    BetterCalc resultSub = a - b;
+    cout << resultSub.getVal() << endl;
+    BetterCalc resultMul = a * b;
+    cout << resultMul.getVal() << endl;
+    BetterCalc resultDiv = a / b;
+    cout << resultDiv.getVal() << endl;
+    BetterCalc resultPow = a ^ b;
+    cout << resultPow.getVal() << endl;
+    ++a;
+    --b;
+    cout << a.getVal() << " " << b.getVal() << endl;
+}
+
+/*
 class Calculator
 {
 private:
@@ -47,15 +118,12 @@ public:
     {
         Number = Number / divide;
     }
-    Calculator()
-    {
-        Number = 0;
-    }
+    Calculator(int n) : Number(n) {}
 };
 
 int main()
 {
-    Calculator n = Calculator();
+    Calculator n(2);
     std::cout << "result default = " << n.getNumber() << std::endl;
     n.addCalculate(2, 3);
     std::cout << "result add = " << n.getNumber() << std::endl;
@@ -76,3 +144,4 @@ int main()
     n.mulNumber(5);
     std::cout << "result Nmul = " << n.getNumber() << std::endl;
 }
+*/
