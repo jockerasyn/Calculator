@@ -166,4 +166,5 @@ int main()
     std::cout << c + a;
     BetterCalc d;
     std::cout << d;
+    std::cout << a;
 }
