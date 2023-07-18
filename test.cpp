@@ -8,10 +8,8 @@ protected:
     float Digit;
 
 public:
-    BetterCalc(float val)
-    {
-        Digit = val;
-    }
+    BetterCalc() : Digit(0) {}
+    BetterCalc(float val) : Digit(val) {}
     BetterCalc operator+(const BetterCalc &obj)
     {
         return Digit + obj.Digit;
@@ -166,6 +164,8 @@ int main()
     a.setVal(5);
     int c = 10;
     std::cout << c + a;
+    BetterCalc d;
+    std::cout << d;
 }
 
 /*
