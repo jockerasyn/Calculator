@@ -4,7 +4,7 @@
 
 class BetterCalc
 {
-private:
+protected:
     float Digit;
 
 public:
@@ -62,6 +62,41 @@ public:
         BetterCalc temp = Digit + val;
         return temp;
     }
+    BetterCalc operator-(const int &val)
+    {
+        BetterCalc temp = Digit - val;
+        return temp;
+    }
+    BetterCalc operator*(const int &val)
+    {
+        BetterCalc temp = Digit * val;
+        return temp;
+    }
+    BetterCalc operator/(const int &val)
+    {
+        BetterCalc temp = Digit / val;
+        return temp;
+    }
+    BetterCalc &operator+=(const int &val)
+    {
+        Digit = Digit + val;
+        return *this;
+    }
+    BetterCalc &operator-=(const int &val)
+    {
+        Digit = Digit - val;
+        return *this;
+    }
+    BetterCalc &operator*=(const int &val)
+    {
+        Digit = Digit * val;
+        return *this;
+    }
+    BetterCalc &operator/=(const int &val)
+    {
+        Digit = Digit / val;
+        return *this;
+    }
     // there can be more copy of ^ this |-|*|/|
     void operator++()
     {
@@ -80,49 +115,51 @@ public:
         Digit = val;
         return 0;
     }
-    void printVal()
-    {
-        std::cout << "Digit = " << Digit << std::endl;
-    }
+    friend BetterCalc operator+(const int &val, const BetterCalc &obj);
+    friend std::ostream &operator<<(std::ostream &print, const BetterCalc &obj);
 };
 
-// outside of the class - only |+|
 BetterCalc operator+(const int &val, const BetterCalc &obj)
 {
-    return val + obj.getVal();
+    return val + obj.Digit;
+}
+std::ostream &operator<<(std::ostream &print, const BetterCalc &obj) // friend function
+{
+    print << "result = " << obj.Digit << std::endl;
+    return print;
 }
 
 int main()
 {
     BetterCalc a(4), b(3.3);
     BetterCalc resultAdd = a + b;
-    resultAdd.printVal();
+    std::cout << resultAdd;
     BetterCalc resultSub = a - b;
-    resultSub.printVal();
+    std::cout << resultSub;
     BetterCalc resultMul = a * b;
-    resultMul.printVal();
+    std::cout << resultMul;
     BetterCalc resultDiv = a / b;
-    resultDiv.printVal();
+    std::cout << resultDiv;
     BetterCalc resultPow = a ^ b;
-    resultPow.printVal();
+    std::cout << resultPow;
     ++a;
-    a.printVal();
+    std::cout << a;
     --b;
-    b.printVal();
+    std::cout << b;
     a += b;
-    a.printVal();
+    std::cout << a;
     a.setVal(5);
     a -= b;
-    a.printVal();
+    std::cout << a;
     a.setVal(5);
     a *= b;
-    a.printVal();
+    std::cout << a;
     a.setVal(5);
     a /= b;
-    a.printVal();
+    std::cout << a;
     a.setVal(5);
     int c = 10;
-    std::cout << (c + a).getVal();
+    std::cout << c + a;
 }
 
 /*
