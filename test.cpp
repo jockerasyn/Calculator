@@ -2,16 +2,16 @@
 
 int main()
 {
-    BetterCalc a(4), b(3.3);
-    BetterCalc resultAdd = a + b;
+    MyDigit a(4), b(3.3);
+    MyDigit resultAdd = a + b;
     std::cout << resultAdd;
-    BetterCalc resultSub = a - b;
+    MyDigit resultSub = a - b;
     std::cout << resultSub;
-    BetterCalc resultMul = a * b;
+    MyDigit resultMul = a * b;
     std::cout << resultMul;
-    BetterCalc resultDiv = a / b;
+    MyDigit resultDiv = a / b;
     std::cout << resultDiv;
-    BetterCalc resultPow = a ^ b;
+    MyDigit resultPow = a ^ b;
     std::cout << resultPow;
     ++a;
     std::cout << a;
@@ -31,7 +31,7 @@ int main()
     a.setVal(5);
     int c = 10;
     std::cout << c + a;
-    BetterCalc d;
+    MyDigit d;
     std::cout << d;
     std::cout << a;
 }

@@ -2,91 +2,90 @@
 #include <iostream>
 #include <cmath>
 
-class BetterCalc
+class MyDigit
 {
 protected:
     float Digit;
 
 public:
-    BetterCalc() : Digit(0) {}
-    BetterCalc(float val) : Digit(val) {}
-    BetterCalc operator+(const BetterCalc &obj)
+    MyDigit() : Digit(0) {}
+    MyDigit(float val) : Digit(val) {}
+    MyDigit operator+(const MyDigit &obj)
     {
         return Digit + obj.Digit;
     }
-    BetterCalc operator-(const BetterCalc &obj)
+    MyDigit operator-(const MyDigit &obj)
     {
         return Digit - obj.Digit;
     }
-    BetterCalc operator*(const BetterCalc &obj)
+    MyDigit operator*(const MyDigit &obj)
     {
         return Digit * obj.Digit;
     }
-    BetterCalc operator/(const BetterCalc &obj)
+    MyDigit operator/(const MyDigit &obj)
     {
         return Digit / obj.Digit;
     }
-    BetterCalc operator^(const BetterCalc &obj)
+    MyDigit operator^(const MyDigit &obj)
     {
         return pow(Digit, obj.Digit);
     }
-    BetterCalc &operator+=(const BetterCalc &obj)
+    MyDigit &operator+=(const MyDigit &obj)
     {
         Digit = Digit + obj.Digit;
         return *this;
     }
-    BetterCalc &operator-=(const BetterCalc &obj)
+    MyDigit &operator-=(const MyDigit &obj)
     {
         Digit = Digit - obj.Digit;
         return *this;
     }
-    BetterCalc &operator*=(const BetterCalc &obj)
+    MyDigit &operator*=(const MyDigit &obj)
     {
         Digit = Digit * obj.Digit;
         return *this;
     }
-    BetterCalc &operator/=(const BetterCalc &obj)
+    MyDigit &operator/=(const MyDigit &obj)
     {
         Digit = Digit / obj.Digit;
         return *this;
     }
-    BetterCalc operator+(const int &val)
+    MyDigit operator+(const int &val)
     {
         return Digit + val;
     }
-    BetterCalc operator-(const int &val)
+    MyDigit operator-(const int &val)
     {
         return Digit - val;
     }
-    BetterCalc operator*(const int &val)
+    MyDigit operator*(const int &val)
     {
         return Digit * val;
     }
-    BetterCalc operator/(const int &val)
+    MyDigit operator/(const int &val)
     {
         return Digit / val;
     }
-    BetterCalc &operator+=(const int &val)
+    MyDigit &operator+=(const int &val)
     {
         Digit = Digit + val;
         return *this;
     }
-    BetterCalc &operator-=(const int &val)
+    MyDigit &operator-=(const int &val)
     {
         Digit = Digit - val;
         return *this;
     }
-    BetterCalc &operator*=(const int &val)
+    MyDigit &operator*=(const int &val)
     {
         Digit = Digit * val;
         return *this;
     }
-    BetterCalc &operator/=(const int &val)
+    MyDigit &operator/=(const int &val)
     {
         Digit = Digit / val;
         return *this;
     }
-    // there can be more copy of ^ this |-|*|/|
     void operator++()
     {
         ++Digit;
@@ -104,30 +103,30 @@ public:
         Digit = val;
         return 0;
     }
-    friend BetterCalc operator+(const int &val, const BetterCalc &obj);
-    friend BetterCalc operator-(const int &val, const BetterCalc &obj);
-    friend BetterCalc operator*(const int &val, const BetterCalc &obj);
-    friend BetterCalc operator/(const int &val, const BetterCalc &obj);
-    friend std::ostream &operator<<(std::ostream &print, const BetterCalc &obj);
+    friend MyDigit operator+(const int &val, const MyDigit &obj);
+    friend MyDigit operator-(const int &val, const MyDigit &obj);
+    friend MyDigit operator*(const int &val, const MyDigit &obj);
+    friend MyDigit operator/(const int &val, const MyDigit &obj);
+    friend std::ostream &operator<<(std::ostream &print, const MyDigit &obj);
 };
 
-BetterCalc operator+(const int &val, const BetterCalc &obj)
+MyDigit operator+(const int &val, const MyDigit &obj)
 {
     return val + obj.Digit;
 }
-BetterCalc operator-(const int &val, const BetterCalc &obj)
+MyDigit operator-(const int &val, const MyDigit &obj)
 {
     return val - obj.Digit;
 }
-BetterCalc operator*(const int &val, const BetterCalc &obj)
+MyDigit operator*(const int &val, const MyDigit &obj)
 {
     return val * obj.Digit;
 }
-BetterCalc operator/(const int &val, const BetterCalc &obj)
+MyDigit operator/(const int &val, const MyDigit &obj)
 {
     return val / obj.Digit;
 }
-std::ostream &operator<<(std::ostream &print, const BetterCalc &obj) // friend function
+std::ostream &operator<<(std::ostream &print, const MyDigit &obj) // friend function
 {
     print << "result = " << obj.Digit << std::endl;
     return print;
