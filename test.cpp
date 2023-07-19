@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include <C:\Users\astei\Documents\GlobalL\calculator\header.cpp>
+#include "header.cpp"
 
 int main()
 {
