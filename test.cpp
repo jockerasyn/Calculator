@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include "header.cpp"
+#include "header.h"
 
 int main()
 {
