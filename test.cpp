@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-#include <cmath>
 #include "header.h"
 
 int main()
