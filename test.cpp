@@ -40,10 +40,10 @@ int main()
     Cow cow2;
     Chicken ch1;
     Chicken ch2;
-    Animal anim;
+    Animal anim1;
+    Animal anim2;
     std::cout << cow1;
     std::cout << cow2;
     std::cout << ch1;
     std::cout << ch2;
-    std::cout << anim;
 }
