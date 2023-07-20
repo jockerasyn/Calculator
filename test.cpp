@@ -3,11 +3,8 @@
 int main()
 {
     MyDigit a(4), b(3.3);
-    std::cout << "Id " << a.getId() << std::endl;
-    std::cout << "Id " << b.getId() << std::endl;
     MyDigit resultAdd = a + b;
     std::cout << resultAdd;
-    std::cout << "Id " << b.getId() << std::endl;
     MyDigit resultSub = a - b;
     std::cout << resultSub;
     MyDigit resultMul = a * b;
@@ -37,8 +34,4 @@ int main()
     MyDigit d;
     std::cout << d;
     std::cout << a;
-    std::cout << "Id " << a.getId() << std::endl;
-    std::cout << "Id " << b.getId() << std::endl;
-    std::cout << "Id " << d.getId() << std::endl;
-    std::cout << "Id " << resultAdd.getId() << std::endl;
 }

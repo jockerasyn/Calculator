@@ -135,7 +135,7 @@ MyDigit operator/(const int &val, const MyDigit &obj)
 }
 std::ostream &operator<<(std::ostream &print, const MyDigit &obj) // friend function
 {
-    print << "result = " << obj.Digit << std::endl;
+    print << "result = " << obj.Digit << " ID: " << obj.Id << std::endl;
     return print;
 }
 
