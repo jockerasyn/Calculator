@@ -1,15 +1,22 @@
 #pragma once
 #include <iostream>
 #include <cmath>
+#include <cstdint>
 
 class MyDigit
 {
 protected:
-    float Digit;
+    float_t Digit;
+    static int16_t NEXT_ID;
+    int16_t Id;
 
 public:
-    MyDigit() : Digit(0) {}
-    MyDigit(float val) : Digit(val) {}
+    MyDigit() : Digit(0), Id(NEXT_ID++) {}
+    MyDigit(float_t val) : Digit(val), Id(NEXT_ID++) {}
+    int getId()
+    {
+        return Id;
+    }
     MyDigit operator+(const MyDigit &obj)
     {
         return Digit + obj.Digit;
@@ -98,7 +105,7 @@ public:
     {
         return Digit;
     }
-    int setVal(float val)
+    int setVal(float_t val)
     {
         Digit = val;
         return 0;
@@ -131,3 +138,5 @@ std::ostream &operator<<(std::ostream &print, const MyDigit &obj) // friend func
     print << "result = " << obj.Digit << std::endl;
     return print;
 }
+
+int16_t MyDigit::NEXT_ID = 0;
