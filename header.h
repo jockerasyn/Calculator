@@ -7,7 +7,7 @@ class MyDigit
 {
 protected:
     float_t Digit;
-    static int16_t NEXT_ID;
+    inline static int16_t NEXT_ID = 0;
     int16_t Id;
 
 public:
@@ -133,10 +133,8 @@ MyDigit operator/(const int &val, const MyDigit &obj)
 {
     return val / obj.Digit;
 }
-std::ostream &operator<<(std::ostream &print, const MyDigit &obj) // friend function
+std::ostream &operator<<(std::ostream &print, const MyDigit &obj)
 {
     print << "result = " << obj.Digit << " ID: " << obj.Id << std::endl;
     return print;
 }
-
-int16_t MyDigit::NEXT_ID = 0;
