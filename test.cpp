@@ -1,4 +1,5 @@
-#include "header.h"
+#include "digit.h"
+#include "animal.h"
 
 int main()
 {
@@ -34,4 +35,15 @@ int main()
     MyDigit d;
     std::cout << d;
     std::cout << a;
+
+    Cow cow1;
+    Cow cow2;
+    Chicken ch1;
+    Chicken ch2;
+    Animal anim;
+    std::cout << cow1;
+    std::cout << cow2;
+    std::cout << ch1;
+    std::cout << ch2;
+    std::cout << anim;
 }
