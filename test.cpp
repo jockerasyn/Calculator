@@ -1,4 +1,4 @@
-#include "digit.h"
+#include "Digit/digit.h"
 #include "animal.h"
 
 int main()
@@ -24,6 +24,7 @@ int main()
     a -= b;
     std::cout << a;
     a.setVal(5);
+
     a *= b;
     std::cout << a;
     a.setVal(5);
@@ -36,16 +37,8 @@ int main()
     std::cout << d;
     std::cout << a;
 
-    Cow cow1;
-    Cow cow2;
-    Chicken ch1;
-    Chicken ch2;
-    Animal anim1;
+    Animal anim1("cow1", 120.4);
     Animal anim2;
-    std::cout << cow1;
-    std::cout << cow2;
-    std::cout << ch1;
-    std::cout << ch2;
     std::cout << anim1;
     std::cout << anim2;
 }

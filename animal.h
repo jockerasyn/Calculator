@@ -6,48 +6,35 @@
 class Animal
 {
 protected:
-    inline static int16_t NEXT_ID;
-    int16_t Id;
-    std::string Species;
+    std::string Name;
+    double Weight;
 
 public:
-    Animal() : Id(NEXT_ID++) {}
-    Animal(std::string species) : Species(species), Id(NEXT_ID++) {}
-    std::string printInfo()
+    Animal() : Name("none"), Weight(0) {}
+    Animal(std::string name, double weight) : Name(name), Weight(weight) {}
+    int setName(std::string name)
     {
-        return Species;
+        Name = name;
+        return 0;
     }
-    void setSpecies(std::string species)
+    int setWeight(int weight)
     {
-        Species = species;
+        Weight = weight;
+        return 0;
     }
-    void setID(int id)
+    std::string getName() const
     {
-        Id = id;
+        return Name;
+    }
+    double getWeight() const
+    {
+        return Weight;
     }
     friend std::ostream &operator<<(std::ostream &print, const Animal &obj);
 };
 
 std::ostream &operator<<(std::ostream &print, const Animal &obj)
 {
-    print << "'" << obj.Species << "','" << obj.Id << "'" << std::endl;
+    print << "'" << obj.Name << "','" << obj.Weight << "'" << std::endl;
     return print;
 }
-
-class Cow : public Animal
-{
-public:
-    Cow()
-    {
-        Species = "cow";
-    }
-};
-
-class Chicken : public Animal
-{
-public:
-    Chicken()
-    {
-        Species = "chicken";
-    }
-};
