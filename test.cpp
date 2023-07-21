@@ -1,5 +1,5 @@
 #include "Digit/digit.h"
-#include "animal.h"
+#include "Animal/animal.h"
 
 int main()
 {

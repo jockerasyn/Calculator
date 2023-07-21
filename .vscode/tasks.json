@@ -9,6 +9,7 @@
                 "-g",
                 "${fileDirname}/*.cpp",
                 "${fileDirname}/Digit/*.cpp",
+                "${fileDirname}/Animal/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
