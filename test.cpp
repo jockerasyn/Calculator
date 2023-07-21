@@ -46,4 +46,6 @@ int main()
     std::cout << cow2;
     std::cout << ch1;
     std::cout << ch2;
+    std::cout << anim1;
+    std::cout << anim2;
 }

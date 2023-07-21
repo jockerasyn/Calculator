@@ -11,11 +11,8 @@ protected:
     std::string Species;
 
 public:
-    Animal()
-    {
-        Id = 0;
-    }
-    Animal(std::string species) : Species(species), Id(++NEXT_ID) {}
+    Animal() : Id(NEXT_ID++) {}
+    Animal(std::string species) : Species(species), Id(NEXT_ID++) {}
     std::string printInfo()
     {
         return Species;
@@ -42,7 +39,6 @@ class Cow : public Animal
 public:
     Cow()
     {
-        Id = ++NEXT_ID;
         Species = "cow";
     }
 };
@@ -52,7 +48,6 @@ class Chicken : public Animal
 public:
     Chicken()
     {
-        Id = ++NEXT_ID;
         Species = "chicken";
     }
 };
