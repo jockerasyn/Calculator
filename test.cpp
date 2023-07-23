@@ -1,5 +1,7 @@
 #include "Digit/digit.h"
 #include "Animal/animal.h"
+#include <vector>
+#include "include/rapidjson/reader.h"
 
 int main()
 {
@@ -39,6 +41,11 @@ int main()
 
     Animal anim1("cow1", 120.4);
     Animal anim2;
-    std::cout << anim1;
-    std::cout << anim2;
+    Animal anim3("dolphin", 100);
+    std::vector<Animal> animals;
+    animals.push_back(anim1);
+    animals.push_back(anim2);
+    animals.push_back(anim3);
+    for (auto i = animals.begin(); i != animals.end(); ++i)
+        std::cout << *i;
 }
