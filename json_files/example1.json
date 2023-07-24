@@ -2,11 +2,11 @@
     "animals": [
         {
             "name": "cow1",
-            "weight": "200"
+            "weight": 200
         },
         {
             "name": "chi1",
-            "weight": "5"
+            "weight": 5
         }
     ]
 }

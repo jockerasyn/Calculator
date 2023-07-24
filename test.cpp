@@ -34,6 +34,14 @@ int main()
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     doc.Accept(writer);
     std::cout << buffer.GetString() << std::endl;
+
+    // get an object
+    const auto &arr = doc["animals"];
+    // assert(arr.IsArray());
+    for (auto const &p : doc["animals"].GetArray())
+    {
+        std::cout << p["name"].GetString() << " " << p["weight"].GetDouble() << std::endl;
+    }
 }
 
 // int main()
