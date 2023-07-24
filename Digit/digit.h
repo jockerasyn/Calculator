@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DIGIT_H_
+#define Digit_H_
 #include <iostream>
 #include <cmath>
 #include <cstdint>
@@ -38,3 +39,4 @@ public:
     friend MyDigit operator/(const int &val, const MyDigit &obj);
     friend std::ostream &operator<<(std::ostream &print, const MyDigit &obj);
 };
+#endif
