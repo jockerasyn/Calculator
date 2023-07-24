@@ -1,13 +1,12 @@
-#include "Digit/digit.h"
+// #include "Digit/digit.h"
 #include "Animal/animal.h"
 #include <vector>
-#include "include/rapidjson/reader.h"
+// #include "include/rapidjson/reader.h"
 #include "include/rapidjson/document.h"
 #include "include/rapidjson/writer.h"
 #include "include/rapidjson/stringbuffer.h"
 #include "include/rapidjson/filereadstream.h"
-#include "include/rapidjson/writer.h"
-#include <cstdio>
+// #include <cstdio>
 
 int main()
 {
