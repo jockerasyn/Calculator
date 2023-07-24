@@ -11,7 +11,6 @@
 
 int main()
 {
-
     Animal anim1("cow1", 120.4);
     Animal anim2;
     Animal anim3("dolphin", 100);
