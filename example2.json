@@ -1,0 +1,16 @@
+{
+    "animals": [
+        {
+            "species": "cow",
+            "name": "cow1",
+            "weight": "200",
+            "runSpeed": "30"
+        },
+        {
+            "species": "chiscken",
+            "name": "chi1",
+            "weight": "5",
+            "flySpeed": "10"
+        }
+    ]
+}
