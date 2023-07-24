@@ -7,6 +7,18 @@
         {
             "name": "chi1",
             "weight": 5
+        },
+        {
+            "name": "chi2",
+            "weight": 6
+        },
+        {
+            "name": "chi3",
+            "weight": 7
+        },
+        {
+            "name": "cow2",
+            "weight": 180
         }
     ]
 }
