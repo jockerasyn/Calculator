@@ -53,13 +53,12 @@ int main()
     animals.push_back(anim3);
     for (auto i = animals.begin(); i != animals.end(); ++i)
         std::cout << *i;
-    // namespace for next operations
-    // using namespace rapidjson;
 
-    FILE *fp = fopen("big.json", "rb"); // non-Windows use "r"
-    char readBuffer[65536];
-    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-    rapidjson::Document d1;
-    d1.ParseStream(is);
-    fclose(fp);
+    // using namespace rapidjson; // namespace for next operations
+    FILE *file = fopen("example1.json", "rb");
+    char buff[65536];
+    rapidjson::FileReadStream rfile(file, buff, sizeof(buff));
+    rapidjson::Document doc;
+    doc.ParseStream(rfile);
+    fclose(file);
 }
