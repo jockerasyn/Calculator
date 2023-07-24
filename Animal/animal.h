@@ -12,6 +12,7 @@ protected:
 public:
     Animal();
     Animal(std::string name, double weight);
+    ~Animal();
     int setName(std::string name);
     int setWeight(int weight);
     std::string getName() const;

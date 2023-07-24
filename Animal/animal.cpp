@@ -2,6 +2,7 @@
 
 Animal::Animal() : Name("none"), Weight(0) {}
 Animal::Animal(std::string name, double weight) : Name(name), Weight(weight) {}
+Animal::~Animal() {}
 int Animal::setName(std::string name)
 {
     Name = name;

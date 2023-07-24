@@ -2,6 +2,11 @@
 #include "Animal/animal.h"
 #include <vector>
 #include "include/rapidjson/reader.h"
+#include "include/rapidjson/document.h"
+#include "include/rapidjson/writer.h"
+#include "include/rapidjson/stringbuffer.h"
+#include "include/rapidjson/filereadstream.h"
+#include <cstdio>
 
 int main()
 {
@@ -48,4 +53,13 @@ int main()
     animals.push_back(anim3);
     for (auto i = animals.begin(); i != animals.end(); ++i)
         std::cout << *i;
+    // namespace for next operations
+    // using namespace rapidjson;
+
+    FILE *fp = fopen("big.json", "rb"); // non-Windows use "r"
+    char readBuffer[65536];
+    rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+    rapidjson::Document d1;
+    d1.ParseStream(is);
+    fclose(fp);
 }
