@@ -24,6 +24,7 @@ double Animal::getWeight() const
 
 std::ostream &operator<<(std::ostream &print, const Animal &obj)
 {
-    print << "'" << obj.Name << "','" << obj.Weight << "'" << std::endl;
+    print << "name:" << obj.Name << std::endl
+          << "weight:" << obj.Weight << std::endl;
     return print;
 }

@@ -11,17 +11,7 @@
 
 int main()
 {
-    Animal anim1("cow1", 120.4);
-    Animal anim2;
-    Animal anim3("dolphin", 100);
-    std::vector<Animal> animals;
-    animals.push_back(anim1);
-    animals.push_back(anim2);
-    animals.push_back(anim3);
-    for (auto i = animals.begin(); i != animals.end(); ++i)
-        std::cout << *i;
-
-    // using namespace rapidjson; // namespace for next operations
+    // using namespace rapidjson; // namespace
     FILE *file = fopen("json_files/example1.json", "rb");
     char buff[65536];
     rapidjson::FileReadStream rfile(file, buff, sizeof(buff));
@@ -33,15 +23,16 @@ int main()
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     doc.Accept(writer);
-    std::cout << buffer.GetString() << std::endl;
+    std::cout << buffer.GetString() << std::endl
+              << std::endl;
 
-    // get an object
-    const auto &arr = doc["animals"];
-    // assert(arr.IsArray());
+    std::vector<Animal> anm;
+    // itterations through animals array
     for (auto const &p : doc["animals"].GetArray())
-    {
-        std::cout << p["name"].GetString() << " " << p["weight"].GetDouble() << std::endl;
-    }
+        anm.push_back(Animal(p["name"].GetString(), p["weight"].GetDouble()));
+
+    for (auto i = anm.begin(); i != anm.end(); ++i)
+        std::cout << *i << std::endl;
 }
 
 // int main()
@@ -80,4 +71,18 @@ int main()
 //     std::cout << d;
 //     std::cout << a;
 //     return 0;
+// }
+
+// int main()
+// {
+//     Animal anim1("cow1", 120.4);
+//     Animal anim2;
+//     Animal anim3("dolphin", 100);
+//     std::vector<Animal> animals;
+//     animals.push_back(anim1);
+//     animals.push_back(anim2);
+//     animals.push_back(anim3);
+//     for (auto i = animals.begin(); i != animals.end(); ++i)
+//         std::cout << *i;
+//     std::cout << std::endl;
 // }
