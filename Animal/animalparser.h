@@ -2,18 +2,21 @@
 #define ANIMALPARSER_H_
 #include <vector>
 #include <string>
-#include "animal.h"
+#include "animalfarm.h"
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/writer.h"
 #include "../include/rapidjson/stringbuffer.h"
 #include "../include/rapidjson/filereadstream.h"
 
+class AnimalFarm;
 class AnimalParser
 {
 private:
+    Cow parseCow(const rapidjson::Value &d);
+    Chicken parseChicken(const rapidjson::Value &d);
+
 public:
     AnimalParser();
-    ~AnimalParser();
-    std::vector<Animal> parse(const char *path);
+    AnimalFarm parse(const char *path);
 };
 #endif

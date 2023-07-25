@@ -19,5 +19,6 @@ public:
     std::string getName() const;
     double getWeight() const;
     friend std::ostream &operator<<(std::ostream &print, const Animal &obj);
+    friend std::ostream &operator<<(std::ostream &print, const Animal *obj);
 };
 #endif

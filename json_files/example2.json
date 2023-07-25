@@ -3,14 +3,26 @@
         {
             "species": "cow",
             "name": "cow1",
-            "weight": "200",
-            "runSpeed": "30"
+            "weight": 200,
+            "runspeed": 30
         },
         {
-            "species": "chiscken",
+            "species": "cow",
+            "name": "cow2",
+            "weight": 202,
+            "runspeed": 30
+        },
+        {
+            "species": "cow",
+            "name": "cow4",
+            "weight": 201,
+            "runspeed": 30
+        },
+        {
+            "species": "chicken",
             "name": "chi1",
-            "weight": "5",
-            "flySpeed": "10"
+            "weight": 5,
+            "flyspeed": 10
         }
     ]
 }
