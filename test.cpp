@@ -1,4 +1,5 @@
 #include "Animal/animal.h"
+#include "Animal/animalparser.h"
 #include <vector>
 
 int main()
