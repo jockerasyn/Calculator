@@ -16,8 +16,7 @@ double Chicken::getFlySpeed() const
 }
 std::ostream &operator<<(std::ostream &print, const Chicken &obj)
 {
-    print << "chicken do Yare Yare Daze" << std::endl
-          << "name:" << obj.Name << std::endl
+    print << "name:" << obj.Name << std::endl
           << "weight:" << obj.Weight << std::endl
           << "fly speed:" << obj.FlySpeed << std::endl;
     return print;
