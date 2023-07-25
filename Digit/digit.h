@@ -32,7 +32,7 @@ public:
     void operator++();
     void operator--();
     float getVal() const;
-    int setVal(float_t val);
+    int setVal(const float_t &val);
     friend MyDigit operator+(const int &val, const MyDigit &obj);
     friend MyDigit operator-(const int &val, const MyDigit &obj);
     friend MyDigit operator*(const int &val, const MyDigit &obj);

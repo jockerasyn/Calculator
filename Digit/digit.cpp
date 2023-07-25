@@ -90,7 +90,7 @@ float MyDigit::getVal() const
 {
     return Digit;
 }
-int MyDigit::setVal(float_t val)
+int MyDigit::setVal(const float_t &val)
 {
     Digit = val;
     return 0;
