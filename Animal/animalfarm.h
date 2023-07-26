@@ -5,7 +5,6 @@
 #include "chicken.h"
 #include <vector>
 #include <string>
-#include <iostream>
 
 class AnimalParser;
 class AnimalFarm
