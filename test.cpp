@@ -9,8 +9,8 @@ int main()
     std::vector<Cow> cows = animals.getCows();
     std::vector<Chicken> chickens = animals.getChickens();
     // presentation
-    for (auto i = cows.begin(); i != cows.end(); ++i)
-        std::cout << *i << std::endl;
+    for (auto const &p : cows)
+        std::cout << p << std::endl;
     for (auto const &p : chickens)
         std::cout << p << std::endl;
 }
