@@ -5,6 +5,7 @@ Chicken::Chicken(std::string name, double weight, double flyspeed) : Animal(name
 {
     FlySpeed = flyspeed;
 }
+Chicken::~Chicken() {}
 int Chicken::setFlySpeed(const double &fs)
 {
     FlySpeed = fs;
@@ -13,6 +14,10 @@ int Chicken::setFlySpeed(const double &fs)
 double Chicken::getFlySpeed() const
 {
     return FlySpeed;
+}
+Chicken Chicken::getChicken() const
+{
+    return *this;
 }
 std::ostream &operator<<(std::ostream &print, const Chicken &obj)
 {

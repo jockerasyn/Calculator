@@ -3,6 +3,9 @@
 #include <vector>
 #include <string>
 #include "animalfarm.h"
+#include "cow.h"
+#include "chicken.h"
+#include "animal.h"
 #include "../include/rapidjson/document.h"
 #include "../include/rapidjson/writer.h"
 #include "../include/rapidjson/stringbuffer.h"
@@ -12,8 +15,8 @@ class AnimalFarm;
 class AnimalParser
 {
 private:
-    Cow parseCow(const rapidjson::Value &d);
-    Chicken parseChicken(const rapidjson::Value &d);
+    Cow *parseCow(const rapidjson::Value &d);
+    Chicken *parseChicken(const rapidjson::Value &d);
 
 public:
     AnimalParser();

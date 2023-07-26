@@ -10,8 +10,10 @@ private:
 public:
     Cow();
     Cow(std::string name, double weight, double runspeed);
+    virtual ~Cow();
     int setRunSpeed(const double &rs);
     double getRunSpeed() const;
+    Cow getCow() const;
     friend std::ostream &operator<<(std::ostream &print, const Cow &obj);
 };
 #endif

@@ -13,7 +13,7 @@ protected:
 public:
     Animal();
     Animal(std::string name, double weight);
-    ~Animal();
+    virtual ~Animal();
     int setName(const std::string &name);
     int setWeight(const int &weight);
     std::string getName() const;

@@ -20,9 +20,39 @@
         },
         {
             "species": "chicken",
-            "name": "chi1",
+            "name": "chi2",
             "weight": 5,
             "flyspeed": 10
+        },
+        {
+            "species": "cow",
+            "name": "cow5",
+            "weight": 201,
+            "runspeed": 30
+        },
+        {
+            "species": "chicken",
+            "name": "chi3",
+            "weight": 5,
+            "flyspeed": 10
+        },
+        {
+            "species": "cow",
+            "name": "cow3",
+            "weight": 201,
+            "runspeed": 30
+        },
+        {
+            "species": "chicken",
+            "name": "chi4",
+            "weight": 5,
+            "flyspeed": 10
+        },
+        {
+            "species": "cow",
+            "name": "cow6",
+            "weight": 201,
+            "runspeed": 30
         }
     ]
 }

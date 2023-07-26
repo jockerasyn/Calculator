@@ -5,6 +5,7 @@ Cow::Cow(std::string name, double weight, double runspeed) : Animal(name, weight
 {
     RunSpeed = runspeed;
 }
+Cow::~Cow() {}
 int Cow::setRunSpeed(const double &rs)
 {
     RunSpeed = rs;
@@ -13,6 +14,10 @@ int Cow::setRunSpeed(const double &rs)
 double Cow::getRunSpeed() const
 {
     return RunSpeed;
+}
+Cow Cow::getCow() const
+{
+    return *this;
 }
 std::ostream &operator<<(std::ostream &print, const Cow &obj)
 {

@@ -2,19 +2,21 @@
 #include "animalparser.h"
 
 AnimalParser::AnimalParser() {}
-Cow AnimalParser::parseCow(const rapidjson::Value &d)
+Cow *AnimalParser::parseCow(const rapidjson::Value &d)
 {
-    return Cow(d["name"].GetString(), d["weight"].GetDouble(), d["runspeed"].GetDouble());
+    Cow *cow = new Cow(d["name"].GetString(), d["weight"].GetDouble(), d["runspeed"].GetDouble());
+    return cow;
 }
-Chicken AnimalParser::parseChicken(const rapidjson::Value &d)
+Chicken *AnimalParser::parseChicken(const rapidjson::Value &d)
 {
-    return Chicken(d["name"].GetString(), d["weight"].GetDouble(), d["flyspeed"].GetDouble());
+    Chicken *chicken = new Chicken(d["name"].GetString(), d["weight"].GetDouble(), d["flyspeed"].GetDouble());
+    return chicken;
 }
 AnimalFarm AnimalParser::parse(const char *path)
 {
     rapidjson::Document Doc;
-    AnimalFarm Animals;
     char rbuff[65536];
+    AnimalFarm animals;
 
     FILE *file = fopen(path, "rb");
     rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
@@ -25,9 +27,13 @@ AnimalFarm AnimalParser::parse(const char *path)
     for (auto const &p : Doc["animals"].GetArray())
     {
         if (p["species"].GetString() == cow)
-            Animals.addAnimal(this->parseCow(p));
+        {
+            animals.addAnimal(parseCow(p));
+        }
         if (p["species"].GetString() == ch)
-            Animals.addAnimal(this->parseChicken(p));
+        {
+            animals.addAnimal(parseChicken(p));
+        }
     }
-    return Animals;
+    return animals;
 }

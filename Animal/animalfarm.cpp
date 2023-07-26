@@ -2,13 +2,18 @@
 #include "animalparser.h"
 
 AnimalFarm::AnimalFarm() {}
-
+AnimalFarm::AnimalFarm(std::vector<Animal *> animals)
+{
+    Animals = animals;
+}
+AnimalFarm::~AnimalFarm()
+{
+}
 int AnimalFarm::loadFromJson(const char *path)
 {
-    AnimalParser *Parser;
-    AnimalFarm af = Parser->parse(path);
-    Cows = af.Cows;
-    Chickens = af.Chickens;
+    AnimalParser *parser;
+    AnimalFarm af = parser->parse(path);
+    Animals = af.Animals;
     return 0;
 }
 // int AnimalFarm::storeToJson(const char *path)
@@ -17,17 +22,37 @@ int AnimalFarm::loadFromJson(const char *path)
 // }
 std::vector<Cow> AnimalFarm::getCows() const
 {
-    return Cows;
+    Cow *pcow;
+    std::vector<Cow> cows;
+    for (auto const &p : Animals)
+    {
+        if (dynamic_cast<Cow *>(p))
+        {
+            pcow = dynamic_cast<Cow *>(p);
+            cows.push_back(pcow->getCow());
+        }
+    }
+    return cows;
 }
 std::vector<Chicken> AnimalFarm::getChickens() const
 {
-    return Chickens;
+    Chicken *pchicken;
+    std::vector<Chicken> chickens;
+    for (int i = 0; i < Animals.size(); i++)
+    {
+        if (dynamic_cast<Chicken *>(Animals[i]))
+        {
+            pchicken = dynamic_cast<Chicken *>(Animals[i]);
+            chickens.push_back(pchicken->getChicken());
+        }
+    }
+    return chickens;
 }
-void AnimalFarm::addAnimal(const Cow &cow)
+void AnimalFarm::addAnimal(Cow *cow)
 {
-    Cows.push_back(cow);
+    Animals.push_back(cow);
 }
-void AnimalFarm::addAnimal(const Chicken &chicken)
+void AnimalFarm::addAnimal(Chicken *chicken)
 {
-    Chickens.push_back(chicken);
+    Animals.push_back(chicken);
 }
