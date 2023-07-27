@@ -1,6 +1,7 @@
 #include "animalparser.h"
 
 AnimalParser::AnimalParser() {}
+AnimalParser::~AnimalParser() {}
 Cow *AnimalParser::parseCow(const rapidjson::Value &d)
 {
     Cow *cow = new Cow(d["name"].GetString(), d["weight"].GetDouble(), d["runspeed"].GetDouble());

@@ -18,6 +18,7 @@ private:
 
 public:
     AnimalParser();
-    std::vector<Animal*> parse(const char *path);
+    ~AnimalParser();
+    std::vector<Animal *> parse(const char *path);
 };
 #endif
