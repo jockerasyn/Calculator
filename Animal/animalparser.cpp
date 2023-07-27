@@ -22,8 +22,8 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
     rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
     Doc.ParseStream(rfile);
     fclose(file);
-    std::string cow = "cow";
-    std::string chi = "chicken";
+    const std::string cow = "cow";
+    const std::string chi = "chicken";
     for (auto const &p : Doc["animals"].GetArray())
     {
         if (p["species"].GetString() == cow)
