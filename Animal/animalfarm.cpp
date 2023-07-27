@@ -35,10 +35,17 @@ int AnimalFarm::loadFromJson(const char *path)
     }
     return 0;
 }
-// int AnimalFarm::storeToJson(const char *path)
-// {
-//     return 0;
-// }
+int AnimalFarm::storeToJson(const char *path)
+{
+    AnimalParser *parser;
+    std::vector<Animal *> animals;
+    for (auto const &p : Cows)
+        animals.push_back(p);
+    for (auto const &p : Chickens)
+        animals.push_back(p);
+    parser->parsewriter(animals, path);
+    return 0;
+}
 std::vector<Cow *> AnimalFarm::getCows() const
 {
     return Cows;
