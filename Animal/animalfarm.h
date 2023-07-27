@@ -5,8 +5,8 @@
 #include "chicken.h"
 #include <vector>
 #include <string>
+#include "animalparser.h"
 
-class AnimalParser;
 class AnimalFarm
 {
 private:

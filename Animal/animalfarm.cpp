@@ -1,5 +1,4 @@
 #include "animalfarm.h"
-#include "animalparser.h"
 
 AnimalFarm::AnimalFarm() {}
 AnimalFarm::AnimalFarm(std::vector<Animal *> animals)
