@@ -1,4 +1,3 @@
-#include "animalfarm.h"
 #include "animalparser.h"
 
 AnimalParser::AnimalParser() {}
@@ -12,27 +11,27 @@ Chicken *AnimalParser::parseChicken(const rapidjson::Value &d)
     Chicken *chicken = new Chicken(d["name"].GetString(), d["weight"].GetDouble(), d["flyspeed"].GetDouble());
     return chicken;
 }
-AnimalFarm AnimalParser::parse(const char *path)
+std::vector<Animal *> AnimalParser::parse(const char *path)
 {
     rapidjson::Document Doc;
     char rbuff[65536];
-    AnimalFarm animals;
+    std::vector<Animal *> animals;
 
     FILE *file = fopen(path, "rb");
     rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
     Doc.ParseStream(rfile);
     fclose(file);
     std::string cow = "cow";
-    std::string ch = "chicken";
+    std::string chi = "chicken";
     for (auto const &p : Doc["animals"].GetArray())
     {
         if (p["species"].GetString() == cow)
         {
-            animals.addAnimal(parseCow(p));
+            animals.push_back(parseCow(p));
         }
-        if (p["species"].GetString() == ch)
+        if (p["species"].GetString() == chi)
         {
-            animals.addAnimal(parseChicken(p));
+            animals.push_back(parseChicken(p));
         }
     }
     return animals;

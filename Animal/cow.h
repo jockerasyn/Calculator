@@ -15,5 +15,6 @@ public:
     double getRunSpeed() const;
     Cow getCow() const;
     friend std::ostream &operator<<(std::ostream &print, const Cow &obj);
+    friend std::ostream &operator<<(std::ostream &print, const Cow *obj);
 };
 #endif

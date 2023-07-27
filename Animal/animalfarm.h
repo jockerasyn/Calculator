@@ -10,7 +10,8 @@ class AnimalParser;
 class AnimalFarm
 {
 private:
-    std::vector<Animal *> Animals;
+    std::vector<Cow *> Cows;
+    std::vector<Chicken *> Chickens;
 
 public:
     AnimalFarm();
@@ -18,8 +19,8 @@ public:
     ~AnimalFarm();
     int loadFromJson(const char *path);
     // int storeToJson(const char *path);
-    std::vector<Cow> getCows() const;
-    std::vector<Chicken> getChickens() const;
+    std::vector<Cow *> getCows() const;
+    std::vector<Chicken *> getChickens() const;
     void addAnimal(Cow *cow);
     void addAnimal(Chicken *chicken);
 };

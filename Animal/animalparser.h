@@ -2,7 +2,6 @@
 #define ANIMALPARSER_H_
 #include <vector>
 #include <string>
-#include "animalfarm.h"
 #include "cow.h"
 #include "chicken.h"
 #include "animal.h"
@@ -11,7 +10,6 @@
 #include "../include/rapidjson/stringbuffer.h"
 #include "../include/rapidjson/filereadstream.h"
 
-class AnimalFarm;
 class AnimalParser
 {
 private:
@@ -20,6 +18,6 @@ private:
 
 public:
     AnimalParser();
-    AnimalFarm parse(const char *path);
+    std::vector<Animal*> parse(const char *path);
 };
 #endif

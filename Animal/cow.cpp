@@ -26,3 +26,10 @@ std::ostream &operator<<(std::ostream &print, const Cow &obj)
           << "run speed:" << obj.RunSpeed << std::endl;
     return print;
 }
+std::ostream &operator<<(std::ostream &print, const Cow *obj)
+{
+    print << "name:" << obj->Name << std::endl
+          << "weight:" << obj->Weight << std::endl
+          << "run speed:" << obj->RunSpeed << std::endl;
+    return print;
+}
