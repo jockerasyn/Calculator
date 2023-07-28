@@ -20,5 +20,15 @@ public:
     double getWeight() const;
     friend std::ostream &operator<<(std::ostream &print, const Animal &obj);
     friend std::ostream &operator<<(std::ostream &print, const Animal *obj);
+
+    // testing purposes only
+    template <typename Writer>
+    void Serialize(Writer &writer)
+    {
+        writer.String("name");
+        writer.String(Name.c_str());
+        writer.String("weight");
+        writer.Double(Weight);
+    }
 };
 #endif

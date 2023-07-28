@@ -16,5 +16,19 @@ public:
     Chicken getChicken() const;
     friend std::ostream &operator<<(std::ostream &print, const Chicken &obj);
     friend std::ostream &operator<<(std::ostream &print, const Chicken *obj);
+
+    // testing purposes only
+    template <typename Writer>
+    void Serialize(Writer &writer)
+    {
+        Animal *an = this;
+        writer.StartObject();
+        writer.String("species");
+        writer.String("chicken");
+        an->Serialize(writer);
+        writer.String("flyspeed");
+        writer.Double(FlySpeed);
+        writer.EndObject();
+    }
 };
 #endif

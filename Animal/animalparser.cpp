@@ -53,30 +53,32 @@ int AnimalParser::parsewriter(const std::vector<Animal *> animals, const char *p
         if (dynamic_cast<Cow *>(p))
         {
             cow = dynamic_cast<Cow *>(p);
-            writer.StartObject();
-            writer.String("species");
-            writer.String("cow");
-            writer.String("name");
-            writer.String(cow->getName().c_str());
-            writer.String("weight");
-            writer.Double(cow->getWeight());
-            writer.String("runspeed");
-            writer.Double(cow->getRunSpeed());
-            writer.EndObject();
+            // writer.StartObject();
+            // writer.String("species");
+            // writer.String("cow");
+            // writer.String("name");
+            // writer.String(cow->getName().c_str());
+            // writer.String("weight");
+            // writer.Double(cow->getWeight());
+            // writer.String("runspeed");
+            // writer.Double(cow->getRunSpeed());
+            // writer.EndObject();
+            cow->Serialize(writer);
         }
         if (dynamic_cast<Chicken *>(p))
         {
             chicken = dynamic_cast<Chicken *>(p);
-            writer.StartObject();
-            writer.String("species");
-            writer.String("chicken");
-            writer.String("name");
-            writer.String(chicken->getName().c_str());
-            writer.String("weight");
-            writer.Double(chicken->getWeight());
-            writer.String("flyspeed");
-            writer.Double(chicken->getFlySpeed());
-            writer.EndObject();
+            // writer.StartObject();
+            // writer.String("species");
+            // writer.String("chicken");
+            // writer.String("name");
+            // writer.String(chicken->getName().c_str());
+            // writer.String("weight");
+            // writer.Double(chicken->getWeight());
+            // writer.String("flyspeed");
+            // writer.Double(chicken->getFlySpeed());
+            // writer.EndObject();
+            chicken->Serialize(writer);
         }
     }
     writer.EndArray();
