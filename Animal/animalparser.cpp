@@ -37,7 +37,7 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
     }
     return animals;
 }
-int AnimalParser::parsewriter(const std::vector<Animal *> animals, const char *path)
+void AnimalParser::parsewriter(const std::vector<Animal *> animals, const char *path)
 {
     rapidjson::Document doc;
     rapidjson::StringBuffer sb;
@@ -91,5 +91,4 @@ int AnimalParser::parsewriter(const std::vector<Animal *> animals, const char *p
     rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
     doc.Accept(fwriter);
     fclose(fp);
-    return 0;
 }

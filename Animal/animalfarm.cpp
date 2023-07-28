@@ -46,11 +46,11 @@ int AnimalFarm::storeToJson(const char *path)
     parser->parsewriter(animals, path);
     return 0;
 }
-std::vector<Cow *> AnimalFarm::getCows() const
+const std::vector<Cow *> &AnimalFarm::getCows()
 {
     return Cows;
 }
-std::vector<Chicken *> AnimalFarm::getChickens() const
+const std::vector<Chicken *> &AnimalFarm::getChickens()
 {
     return Chickens;
 }

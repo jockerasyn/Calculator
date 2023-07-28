@@ -13,13 +13,13 @@ int main()
 
     animals.storeToJson("json_files/example3.json");
 
-    // std::vector<Cow *> cows = animals.getCows();
-    // std::vector<Chicken *> chickens = animals.getChickens();
-    // // presentation
-    // for (auto const &p : cows)
-    //     std::cout << p << std::endl;
-    // for (auto const &p : chickens)
-    //     std::cout << p << std::endl;
+    std::vector<Cow *> cows = animals.getCows();
+    std::vector<Chicken *> chickens = animals.getChickens();
+    // presentation
+    for (auto const &p : cows)
+        std::cout << p << std::endl;
+    for (auto const &p : chickens)
+        std::cout << p << std::endl;
 
     // AnimalParser parser;
     // std::vector<Animal *> an = parser.parse("json_files/example2.json");
