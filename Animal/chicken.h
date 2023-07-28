@@ -17,18 +17,22 @@ public:
     friend std::ostream &operator<<(std::ostream &print, const Chicken &obj);
     friend std::ostream &operator<<(std::ostream &print, const Chicken *obj);
 
-    // testing purposes only
-    template <typename Writer>
-    void Serialize(Writer &writer)
+    std::string Serialize() const
     {
-        Animal *an = this;
+        rapidjson::StringBuffer sb;
+        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
         writer.StartObject();
         writer.String("species");
         writer.String("chicken");
-        an->Serialize(writer);
+        writer.String("name");
+        writer.String(Name.c_str());
+        writer.String("weight");
+        writer.Double(Weight);
         writer.String("flyspeed");
         writer.Double(FlySpeed);
         writer.EndObject();
+
+        return sb.GetString();
     }
 };
 #endif

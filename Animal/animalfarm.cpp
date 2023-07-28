@@ -1,7 +1,7 @@
 #include "animalfarm.h"
 
 AnimalFarm::AnimalFarm() {}
-AnimalFarm::AnimalFarm(std::vector<Animal *> animals)
+AnimalFarm::AnimalFarm(const std::vector<Animal *> &animals)
 {
     for (auto const &p : animals)
     {

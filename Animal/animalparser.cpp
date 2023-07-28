@@ -37,53 +37,18 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
     }
     return animals;
 }
-void AnimalParser::parsewriter(const std::vector<Animal *> animals, const char *path)
+void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char *path)
 {
     rapidjson::Document doc;
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-    Cow *cow;
-    Chicken *chicken;
-
-    writer.StartObject();
-    writer.String("animals");
-    writer.StartArray();
-    for (auto const &p : animals)
+    std::string result = "{\"animals\":[";
+    for (auto const *p : animals)
     {
-        if (dynamic_cast<Cow *>(p))
-        {
-            cow = dynamic_cast<Cow *>(p);
-            // writer.StartObject();
-            // writer.String("species");
-            // writer.String("cow");
-            // writer.String("name");
-            // writer.String(cow->getName().c_str());
-            // writer.String("weight");
-            // writer.Double(cow->getWeight());
-            // writer.String("runspeed");
-            // writer.Double(cow->getRunSpeed());
-            // writer.EndObject();
-            cow->Serialize(writer);
-        }
-        if (dynamic_cast<Chicken *>(p))
-        {
-            chicken = dynamic_cast<Chicken *>(p);
-            // writer.StartObject();
-            // writer.String("species");
-            // writer.String("chicken");
-            // writer.String("name");
-            // writer.String(chicken->getName().c_str());
-            // writer.String("weight");
-            // writer.Double(chicken->getWeight());
-            // writer.String("flyspeed");
-            // writer.Double(chicken->getFlySpeed());
-            // writer.EndObject();
-            chicken->Serialize(writer);
-        }
+        result = result + p->Serialize() + ",";
     }
-    writer.EndArray();
-    writer.EndObject();
-    doc.Parse(sb.GetString());
+    result.erase(result.end() - 1, result.end());
+    result = result + "]}";
+    std::cout << result << std::endl;
+    doc.Parse(result.c_str());
 
     FILE *fp = fopen(path, "wb");
     char writeBuffer[65536];

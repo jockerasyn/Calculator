@@ -24,6 +24,6 @@ public:
     ~AnimalParser();
     std::vector<Animal *> parse(const char *path);
     // only for testing purposes
-    void parsewriter(const std::vector<Animal *> animals, const char *path);
+    void parsewriter(const std::vector<Animal *> &animals, const char *path);
 };
 #endif

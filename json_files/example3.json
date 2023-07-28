@@ -1,1 +1,70 @@
-{"animals":[{"species":"cow","name":"cow1","weight":200.0,"runspeed":30.0},{"species":"cow","name":"cow2","weight":202.0,"runspeed":30.0},{"species":"cow","name":"cow4","weight":201.0,"runspeed":30.0},{"species":"cow","name":"cow5","weight":201.0,"runspeed":30.0},{"species":"cow","name":"cow3","weight":201.0,"runspeed":30.0},{"species":"cow","name":"cow6","weight":201.0,"runspeed":30.0},{"species":"cow","name":"cow new","weight":100.0,"runspeed":30.0},{"species":"chicken","name":"chi2","weight":5.0,"flyspeed":10.0},{"species":"chicken","name":"chi3","weight":5.0,"flyspeed":10.0},{"species":"chicken","name":"chi4","weight":5.0,"flyspeed":10.0},{"species":"chicken","name":"chicken new","weight":10.0,"flyspeed":2.0}]}
+{
+    "animals": [
+        {
+            "species": "cow",
+            "name": "cow1",
+            "weight": 200.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow2",
+            "weight": 202.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow4",
+            "weight": 201.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow5",
+            "weight": 201.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow3",
+            "weight": 201.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow6",
+            "weight": 201.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "cow",
+            "name": "cow new",
+            "weight": 100.0,
+            "runspeed": 30.0
+        },
+        {
+            "species": "chicken",
+            "name": "chi2",
+            "weight": 5.0,
+            "flyspeed": 10.0
+        },
+        {
+            "species": "chicken",
+            "name": "chi3",
+            "weight": 5.0,
+            "flyspeed": 10.0
+        },
+        {
+            "species": "chicken",
+            "name": "chi4",
+            "weight": 5.0,
+            "flyspeed": 10.0
+        },
+        {
+            "species": "chicken",
+            "name": "chicken new",
+            "weight": 10.0,
+            "flyspeed": 2.0
+        }
+    ]
+}

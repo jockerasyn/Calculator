@@ -15,7 +15,7 @@ private:
 
 public:
     AnimalFarm();
-    AnimalFarm(std::vector<Animal *> animals);
+    AnimalFarm(const std::vector<Animal *> &animals);
     ~AnimalFarm();
     int loadFromJson(const char *path);
     int storeToJson(const char *path);
