@@ -23,7 +23,7 @@ public:
 
     // testing purposes only
     template <typename Writer>
-    void Serialize(Writer &writer)
+    void Serialize(Writer &writer) const
     {
         writer.String("name");
         writer.String(Name.c_str());

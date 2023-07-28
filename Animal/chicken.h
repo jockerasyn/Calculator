@@ -19,7 +19,7 @@ public:
 
     // testing purposes only
     template <typename Writer>
-    void Serialize(Writer &writer)
+    void Serialize(Writer &writer) const
     {
         Animal *an = this;
         writer.StartObject();
