@@ -47,7 +47,7 @@ void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char 
     }
     result.erase(result.end() - 1, result.end());
     result = result + "]}";
-    std::cout << result << std::endl;
+    // std::cout << result << std::endl;
     doc.Parse(result.c_str());
 
     FILE *fp = fopen(path, "wb");
