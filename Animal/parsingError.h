@@ -4,6 +4,9 @@ enum parseError
 {
     NoError,
     FileNotExist,
-    IncorrectFormat
+    DirrNotExist,
+    WritingError,
+    IncorrectFormat,
+    EmptyFarm
 };
 #endif

@@ -1,0 +1,10 @@
+{
+    "animals": [
+        {
+            "species": "cow",
+            "name": "bigger food2",
+            "weight": 102.0,
+            "runspeed": 32.0
+        }
+    ]
+}

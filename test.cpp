@@ -15,8 +15,9 @@ int main()
     // std::cin >> path;
     path = "json_files/example1.json";
     std::cout << path << std::endl;
+    int loop = 1;
 
-    while (true)
+    while (loop)
     {
         // json_files/example2.json  <--- correct file path
         err = animals.loadFromJson(path.c_str());
@@ -35,7 +36,8 @@ int main()
             animals.addAnimal(new Cow("bigger food2", 102, 32));
             animals.storeToJson("json_files/example3.json");
             // ...
-            return 0;
+            loop = 0;
+            break;
         case FileNotExist:
             std::cout << "Enter correct path: ";
             // std::cin >> path;
@@ -48,9 +50,31 @@ int main()
             path = "json_files/example21.json";
             std::cout << path << std::endl;
             break;
+        case EmptyFarm:
+            std::cout << "Farm is empty";
+            loop = 0;
+            break;
         default:
-            return -1;
+            std::cout << "err";
+            loop = 0;
+            break;
         }
+
+        // // testing writing
+        // AnimalFarm animalz;
+        // animalz.addAnimal(new Cow("bigger food2", 102, 32));
+        // err = animalz.storeToJson("json_files/example4.json");
+
+        // if (err == EmptyFarm)
+        // {
+        //     std::cout << "Farm2 is empty";
+        //     return -1;
+        // }
+        // else
+        // {
+        //     std::cout << "farm saved";
+        //     return 0;
+        // }
     }
 
     // std::vector<Cow *> cows = animals.getCows();

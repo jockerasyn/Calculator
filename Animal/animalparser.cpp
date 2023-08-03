@@ -22,7 +22,11 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
     parseError err;
 
     if (!(file = fopen(path, "rb")))
+    {
+        file = NULL;
+        delete file;
         throw err = FileNotExist;
+    }
     else
     {
         rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
@@ -51,6 +55,7 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
 }
 void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char *path)
 {
+    parseError err;
     rapidjson::Document doc;
     std::string result = "{\"animals\":[";
     for (auto const *p : animals)
@@ -61,11 +66,25 @@ void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char 
     result = result + "]}";
     // std::cout << result << std::endl;
     doc.Parse(result.c_str());
+    if (doc.HasParseError())
+        throw err = WritingError;
+    else
+    {
+        FILE *fp;
 
-    FILE *fp = fopen(path, "wb");
-    char writeBuffer[65536];
-    rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-    rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
-    doc.Accept(fwriter);
-    fclose(fp);
+        if (!(fp = fopen(path, "wb")))
+        {
+            fp = NULL;
+            delete fp;
+            throw err = DirrNotExist;
+        }
+        else
+        {
+            char writeBuffer[65536];
+            rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+            rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
+            doc.Accept(fwriter);
+            fclose(fp);
+        }
+    }
 }
