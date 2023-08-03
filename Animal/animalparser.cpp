@@ -14,28 +14,40 @@ Chicken *AnimalParser::parseChicken(const rapidjson::Value &d)
 }
 std::vector<Animal *> AnimalParser::parse(const char *path)
 {
+
     rapidjson::Document Doc;
     char rbuff[65536];
     std::vector<Animal *> animals;
+    FILE *file;
+    parseError err;
 
-    FILE *file = fopen(path, "rb");
-    rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
-    Doc.ParseStream(rfile);
-    fclose(file);
-    const std::string cow = "cow";
-    const std::string chi = "chicken";
-    for (auto const &p : Doc["animals"].GetArray())
+    if (!(file = fopen(path, "rb")))
+        throw err = FileNotExist;
+    else
     {
-        if (p["species"].GetString() == cow)
+        rapidjson::FileReadStream rfile(file, rbuff, sizeof(rbuff));
+        Doc.ParseStream(rfile);
+        if (Doc.HasParseError())
+            throw err = IncorrectFormat;
+        else
         {
-            animals.push_back(parseCow(p));
-        }
-        if (p["species"].GetString() == chi)
-        {
-            animals.push_back(parseChicken(p));
+            fclose(file);
+            const std::string cow = "cow";
+            const std::string chi = "chicken";
+            for (auto const &p : Doc["animals"].GetArray())
+            {
+                if (p["species"].GetString() == cow)
+                {
+                    animals.push_back(parseCow(p));
+                }
+                if (p["species"].GetString() == chi)
+                {
+                    animals.push_back(parseChicken(p));
+                }
+            }
+            return animals;
         }
     }
-    return animals;
 }
 void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char *path)
 {

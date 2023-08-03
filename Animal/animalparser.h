@@ -12,6 +12,7 @@
 #include "../include/rapidjson/filereadstream.h"
 #include "../include/rapidjson/prettywriter.h"
 #include "../include/rapidjson/filewritestream.h"
+#include "parsingError.h"
 
 class AnimalParser
 {
