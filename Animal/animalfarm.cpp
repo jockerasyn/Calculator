@@ -55,7 +55,7 @@ parseError AnimalFarm::storeToJson(const char *path)
     {
         AnimalParser *parser;
         std::vector<Animal *> animals;
-        parseError err;
+        parseError err = NoError;
         for (auto const &p : Cows)
             animals.push_back(p);
         for (auto const &p : Chickens)
@@ -63,8 +63,11 @@ parseError AnimalFarm::storeToJson(const char *path)
         if (animals.empty())
             throw err = EmptyFarm;
         else
+        {
             parser->parsewriter(animals, path);
-        return err = NoError;
+            std::cout << "ERROR := No writing error occured" << std::endl;
+        }
+        return err;
     }
     catch (parseError err)
     {
@@ -73,7 +76,7 @@ parseError AnimalFarm::storeToJson(const char *path)
         else if (err == DirrNotExist)
             std::cout << "ERROR := Incorrect directory path" << std::endl;
         else if (err == EmptyFarm)
-            std::cout << "ERROR := Farm is empty" << std::endl;
+            std::cout << "ERROR := Farm is empty, nothing to save" << std::endl;
         return err;
     }
 }

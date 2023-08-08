@@ -17,22 +17,6 @@ public:
     friend std::ostream &operator<<(std::ostream &print, const Chicken &obj);
     friend std::ostream &operator<<(std::ostream &print, const Chicken *obj);
 
-    std::string Serialize() const
-    {
-        rapidjson::StringBuffer sb;
-        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-        writer.StartObject();
-        writer.String("species");
-        writer.String("chicken");
-        writer.String("name");
-        writer.String(Name.c_str());
-        writer.String("weight");
-        writer.Double(Weight);
-        writer.String("flyspeed");
-        writer.Double(FlySpeed);
-        writer.EndObject();
-
-        return sb.GetString();
-    }
+    std::string Serialize() const;
 };
 #endif

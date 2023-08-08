@@ -33,3 +33,18 @@ std::ostream &operator<<(std::ostream &print, const Cow *obj)
           << "run speed:" << obj->RunSpeed << std::endl;
     return print;
 }
+
+std::string Cow::Serialize() const
+{
+    std::stringstream ss;
+    std::string string;
+    ss << "{\"species\":\"cow\",\"name\":\""
+       << Name.c_str()
+       << "\",\"weight\":"
+       << Weight
+       << ",\"runspeed\":"
+       << RunSpeed
+       << "}";
+    string = ss.str();
+    return string;
+}

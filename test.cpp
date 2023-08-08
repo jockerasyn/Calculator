@@ -5,87 +5,102 @@
 #include "include/rapidjson/writer.h"
 #include "Animal/parsingError.h"
 
+int ReadFile(const std::string path, AnimalFarm &animals);
+int SaveFile(const std::string path, AnimalFarm &animals);
+int AddCowToFarm(AnimalFarm &animals, const std::string name, const double weight, const double runspeed);
+int AddChickenToFarm(AnimalFarm &animals, const std::string name, const double weight, const double flyspeed);
+
 int main()
 {
     std::string path;
     AnimalFarm animals;
     parseError err;
 
-    std::cout << "Enter path: ";
+    // json_files/example2.json  <--- correct file path
+    // std::cout << "Enter path: ";
     // std::cin >> path;
-    path = "json_files/example1.json";
-    std::cout << path << std::endl;
-    int loop = 1;
 
-    while (loop)
+    AnimalFarm an;
+    ReadFile("json_files/example2.json", an);
+    AddCowToFarm(an, "tester1", 600, 10);
+    AddChickenToFarm(an, "tester2", 1, 100);
+    SaveFile("json_files/example5.json", an);
+}
+
+int ReadFile(std::string path, AnimalFarm &animals)
+{
+    parseError err;
+    while (true)
     {
-        // json_files/example2.json  <--- correct file path
-        err = animals.loadFromJson(path.c_str());
+        if (path == "exit")
+        {
+            std::cout << "File reading ended with EXIT status";
+            return 0;
+        }
+        else
+        {
+            err = animals.loadFromJson(path.c_str());
+            switch (err)
+            {
+            case NoError:
+                std::cout << "File read succesfuly" << std::endl;
+                return 0;
+                break;
+            case FileNotExist:
+                std::cout << "Enter correct path: ";
+                std::cin >> path;
+                // path = "json_files/example2.json";
+                // std::cout << path << std::endl;
+                break;
+            case IncorrectFormat:
+                std::cout << "Enter path to correct file: ";
+                std::cin >> path;
+                // path = "json_files/example21.json";
+                // std::cout << path << std::endl;
+                break;
+            default:
+                std::cout << "Unknown Error";
+                exit(0);
+            }
+        }
+    }
+    return 0;
+}
+int SaveFile(std::string path, AnimalFarm &animals)
+{
+    parseError err;
+    while (true)
+    {
+        err = animals.storeToJson(path.c_str());
         switch (err)
         {
         case NoError:
-            animals.addAnimal(new Cow("cow new", 100, 30));
-            animals.addAnimal(new Chicken("chicken new", 10, 2));
-            animals.addAnimal(new Chicken("chicken nugget", 12, 4));
-            animals.addAnimal(new Chicken("food", 14, 7));
-            animals.addAnimal(new Cow("bigger food", 102, 32));
-            animals.addAnimal(new Cow("cow new2", 100, 30));
-            animals.addAnimal(new Chicken("chicken new2", 10, 2));
-            animals.addAnimal(new Chicken("chicken nugget2", 12, 4));
-            animals.addAnimal(new Chicken("food2", 14, 7));
-            animals.addAnimal(new Cow("bigger food2", 102, 32));
-            animals.storeToJson("json_files/example3.json");
-            // ...
-            loop = 0;
-            break;
-        case FileNotExist:
-            std::cout << "Enter correct path: ";
-            // std::cin >> path;
-            path = "json_files/example2.json";
-            std::cout << path << std::endl;
-            break;
-        case IncorrectFormat:
+            std::cout << "Farm was saved sucesfully" << std::endl;
+            return 0;
+        case WritingError:
+            std::cout << "Something went wrong during saving" << std::endl;
+            return -1;
+        case DirrNotExist:
             std::cout << "Enter path to correct file: ";
-            // std::cin >> path;
-            path = "json_files/example21.json";
-            std::cout << path << std::endl;
+            std::cin >> path;
             break;
         case EmptyFarm:
-            std::cout << "Farm is empty";
-            loop = 0;
-            break;
+            std::cout << "Farm is empty (add some animals before saving)" << std::endl;
+            return -1;
         default:
-            std::cout << "err";
-            loop = 0;
-            break;
+            std::cout << "Unknown Error";
+            exit(0);
         }
-
-        // // testing writing
-        // AnimalFarm animalz;
-        // animalz.addAnimal(new Cow("bigger food2", 102, 32));
-        // err = animalz.storeToJson("json_files/example4.json");
-
-        // if (err == EmptyFarm)
-        // {
-        //     std::cout << "Farm2 is empty";
-        //     return -1;
-        // }
-        // else
-        // {
-        //     std::cout << "farm saved";
-        //     return 0;
-        // }
     }
-
-    // std::vector<Cow *> cows = animals.getCows();
-    // std::vector<Chicken *> chickens = animals.getChickens();
-    // // presentation
-    // for (auto const &p : cows)
-    //     std::cout << p << std::endl;
-    // for (auto const &p : chickens)
-    //     std::cout << p << std::endl;
-    // AnimalParser parser;
-    // std::vector<Animal *> an = parser.parse("json_files/example2.json");
-    // an.push_back(new Cow("cow222 new", 122, 31));
-    // parser.parsewriter(an, "json_files/example2.json");
+    return 0;
+}
+int AddCowToFarm(AnimalFarm &animals, const std::string name, const double weight, const double runspeed)
+{
+    animals.addAnimal(new Cow(name, weight, runspeed));
+    return 0;
+}
+int AddChickenToFarm(AnimalFarm &animals, const std::string name, const double weight, const double flyspeed)
+{
+    animals.addAnimal(new Chicken(name, weight, flyspeed));
+    return 0;
 }

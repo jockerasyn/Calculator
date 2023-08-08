@@ -5,6 +5,7 @@
 #include <string>
 #include "../include/rapidjson/writer.h"
 #include "../include/rapidjson/prettywriter.h"
+#include <sstream>
 
 class Animal
 {
@@ -24,17 +25,6 @@ public:
     friend std::ostream &operator<<(std::ostream &print, const Animal *obj);
 
     // testing purposes only
-    virtual std::string Serialize() const
-    {
-        rapidjson::StringBuffer sb;
-        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-        writer.String("species");
-        writer.String("N/A");
-        writer.String("name");
-        writer.String(Name.c_str());
-        writer.String("weight");
-        writer.Double(Weight);
-        return sb.GetString();
-    }
+    virtual std::string Serialize() const;
 };
 #endif
