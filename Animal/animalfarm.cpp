@@ -18,7 +18,7 @@ AnimalFarm::AnimalFarm(const std::vector<Animal *> &animals)
 AnimalFarm::~AnimalFarm()
 {
 }
-parseError AnimalFarm::loadFromJson(const char *path)
+ParseError AnimalFarm::loadFromJson(const char *path)
 {
     std::vector<Animal *> animals;
     try
@@ -26,7 +26,7 @@ parseError AnimalFarm::loadFromJson(const char *path)
         AnimalParser *parser;
         animals = parser->parse(path);
         std::cout << "ERROR := No parse error occured" << std::endl;
-        parseError err = NoError;
+        ParseError err = NoError;
         for (auto const &p : animals)
         {
             if (dynamic_cast<Chicken *>(p))
@@ -40,7 +40,7 @@ parseError AnimalFarm::loadFromJson(const char *path)
         }
         return err;
     }
-    catch (parseError err)
+    catch (ParseError err)
     {
         if (err == FileNotExist)
             std::cout << "ERROR := No such a file or directory" << std::endl;
@@ -49,13 +49,13 @@ parseError AnimalFarm::loadFromJson(const char *path)
         return err;
     }
 }
-parseError AnimalFarm::storeToJson(const char *path)
+ParseError AnimalFarm::storeToJson(const char *path)
 {
     try
     {
         AnimalParser *parser;
         std::vector<Animal *> animals;
-        parseError err = NoError;
+        ParseError err = NoError;
         for (auto const &p : Cows)
             animals.push_back(p);
         for (auto const &p : Chickens)
@@ -69,7 +69,7 @@ parseError AnimalFarm::storeToJson(const char *path)
         }
         return err;
     }
-    catch (parseError err)
+    catch (ParseError err)
     {
         if (err == WritingError)
             std::cout << "ERROR := Writting error occured" << std::endl;

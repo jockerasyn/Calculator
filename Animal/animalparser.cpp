@@ -18,13 +18,12 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
     rapidjson::Document Doc;
     char rbuff[65536];
     std::vector<Animal *> animals;
-    FILE *file;
-    parseError err;
+    FILE *file = fopen(path, "rb");
+    ParseError err;
 
-    if (!(file = fopen(path, "rb")))
+    if (!(file))
     {
-        file = NULL;
-        delete file;
+        file = nullptr;
         throw err = FileNotExist;
     }
     else
@@ -33,29 +32,27 @@ std::vector<Animal *> AnimalParser::parse(const char *path)
         Doc.ParseStream(rfile);
         if (Doc.HasParseError())
             throw err = IncorrectFormat;
-        else
+
+        fclose(file);
+        const std::string cow = "cow";
+        const std::string chi = "chicken";
+        for (auto const &p : Doc["animals"].GetArray())
         {
-            fclose(file);
-            const std::string cow = "cow";
-            const std::string chi = "chicken";
-            for (auto const &p : Doc["animals"].GetArray())
+            if (p["species"].GetString() == cow)
             {
-                if (p["species"].GetString() == cow)
-                {
-                    animals.push_back(parseCow(p));
-                }
-                if (p["species"].GetString() == chi)
-                {
-                    animals.push_back(parseChicken(p));
-                }
+                animals.push_back(parseCow(p));
             }
-            return animals;
+            if (p["species"].GetString() == chi)
+            {
+                animals.push_back(parseChicken(p));
+            }
         }
+        return animals;
     }
 }
 void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char *path)
 {
-    parseError err;
+    ParseError err;
     rapidjson::Document doc;
     std::string result = "{\"animals\":[";
     for (auto const *p : animals)
@@ -70,21 +67,17 @@ void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char 
         throw err = WritingError;
     else
     {
-        FILE *fp;
+        FILE *fp = fopen(path, "wb");
 
-        if (!(fp = fopen(path, "wb")))
+        if (!(fp))
         {
-            fp = NULL;
-            delete fp;
+            fp = nullptr;
             throw err = DirrNotExist;
         }
-        else
-        {
-            char writeBuffer[65536];
-            rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-            rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
-            doc.Accept(fwriter);
-            fclose(fp);
-        }
+        char writeBuffer[65536];
+        rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+        rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
+        doc.Accept(fwriter);
+        fclose(fp);
     }
 }

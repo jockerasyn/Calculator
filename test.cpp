@@ -14,7 +14,7 @@ int main()
 {
     std::string path;
     AnimalFarm animals;
-    parseError err;
+    ParseError err;
 
     // json_files/example2.json  <--- correct file path
     // std::cout << "Enter path: ";
@@ -29,7 +29,7 @@ int main()
 
 int ReadFile(std::string path, AnimalFarm &animals)
 {
-    parseError err;
+    ParseError err;
     while (true)
     {
         if (path == "exit")
@@ -68,7 +68,7 @@ int ReadFile(std::string path, AnimalFarm &animals)
 }
 int SaveFile(std::string path, AnimalFarm &animals)
 {
-    parseError err;
+    ParseError err;
     while (true)
     {
         err = animals.storeToJson(path.c_str());

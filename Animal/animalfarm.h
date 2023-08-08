@@ -1,5 +1,5 @@
 #ifndef ANIMALFARM_H_
-#define ANIMALFARM_H_
+#define ANIMALFARM_H_ANIMALFARM_H_
 #include "animal.h"
 #include "cow.h"
 #include "chicken.h"
@@ -18,8 +18,8 @@ public:
     AnimalFarm();
     AnimalFarm(const std::vector<Animal *> &animals);
     ~AnimalFarm();
-    parseError loadFromJson(const char *path);
-    parseError storeToJson(const char *path);
+    ParseError loadFromJson(const char *path);
+    ParseError storeToJson(const char *path);
     const std::vector<Cow *> &getCows();
     const std::vector<Chicken *> &getChickens();
     void addAnimal(Cow *cow);
