@@ -6,12 +6,13 @@
             "command": "g++", /*or path to g++ compiler*/
             "args": [
                 "-fdiagnostics-color=always",
+                "--include-directory=include/",
                 "-g",
-                "${fileDirname}/*.cpp",
-                "${fileDirname}/Digit/*.cpp",
-                "${fileDirname}/Animal/*.cpp",
+                "${workspaceFolder}/*.cpp",
+                "${workspaceFolder}/include/Digit/*.cpp",
+                "${workspaceFolder}/include/Animal/*.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}test.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"

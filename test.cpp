@@ -1,8 +1,8 @@
 #include <vector>
 #include <iostream>
 #include "Animal/animalfarm.h"
-#include "include/rapidjson/prettywriter.h"
-#include "include/rapidjson/writer.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/writer.h"
 #include "Animal/parsingError.h"
 
 int ReadFile(const std::string path, AnimalFarm &animals);
@@ -25,6 +25,10 @@ int main()
     AddCowToFarm(an, "tester1", 600, 10);
     AddChickenToFarm(an, "tester2", 1, 100);
     SaveFile("json_files/example5.json", an);
+
+    std::cout << std::endl
+              << "success" << std::endl
+              << std::endl;
 }
 
 int ReadFile(std::string path, AnimalFarm &animals)
@@ -75,7 +79,7 @@ int SaveFile(std::string path, AnimalFarm &animals)
         switch (err)
         {
         case NoError:
-            std::cout << "Farm was saved sucesfully" << std::endl;
+            std::cout << "Farm was saved successfully" << std::endl;
             return 0;
         case WritingError:
             std::cout << "Something went wrong during saving" << std::endl;

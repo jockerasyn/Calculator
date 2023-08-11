@@ -6,12 +6,12 @@
 #include "chicken.h"
 #include "animal.h"
 #include <cstdio>
-#include "../include/rapidjson/document.h"
-#include "../include/rapidjson/writer.h"
-#include "../include/rapidjson/stringbuffer.h"
-#include "../include/rapidjson/filereadstream.h"
-#include "../include/rapidjson/prettywriter.h"
-#include "../include/rapidjson/filewritestream.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/filewritestream.h"
 #include "parsingError.h"
 #include <fstream>
 

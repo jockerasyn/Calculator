@@ -3,8 +3,8 @@
 #include <iostream>
 #include <cstdint>
 #include <string>
-#include "../include/rapidjson/writer.h"
-#include "../include/rapidjson/prettywriter.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/prettywriter.h"
 #include <sstream>
 
 class Animal
