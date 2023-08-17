@@ -81,6 +81,9 @@ int SaveFile(std::string path, AnimalFarm &animals)
         case NoError:
             std::cout << "Farm was saved successfully" << std::endl;
             return 0;
+        case FileWriteError:
+            std::cout << "Something went wrong during saving (file error occured)" << std::endl;
+            return -1;
         case WritingError:
             std::cout << "Something went wrong during saving" << std::endl;
             return -1;

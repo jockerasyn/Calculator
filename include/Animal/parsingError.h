@@ -7,6 +7,7 @@ enum ParseError
     DirrNotExist,
     WritingError,
     IncorrectFormat,
-    EmptyFarm
+    EmptyFarm,
+    FileWriteError
 };
 #endif

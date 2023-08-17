@@ -15,7 +15,6 @@ public:
     double getFlySpeed() const;
     Chicken getChicken() const;
     friend std::ostream &operator<<(std::ostream &print, const Chicken &obj);
-    friend std::ostream &operator<<(std::ostream &print, const Chicken *obj);
 
     std::string Serialize() const;
 };

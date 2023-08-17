@@ -27,13 +27,6 @@ std::ostream &operator<<(std::ostream &print, const Animal &obj)
           << "weight:" << obj.Weight << std::endl;
     return print;
 }
-std::ostream &operator<<(std::ostream &print, const Animal *obj)
-{
-    print << "pointing at" << std::endl
-          << "name:" << obj->Name << std::endl
-          << "weight:" << obj->Weight << std::endl;
-    return print;
-}
 
 std::string Animal::Serialize() const
 {

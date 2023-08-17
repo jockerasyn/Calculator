@@ -26,13 +26,6 @@ std::ostream &operator<<(std::ostream &print, const Chicken &obj)
           << "fly speed:" << obj.FlySpeed << std::endl;
     return print;
 }
-std::ostream &operator<<(std::ostream &print, const Chicken *obj)
-{
-    print << "name:" << obj->Name << std::endl
-          << "weight:" << obj->Weight << std::endl
-          << "fly speed:" << obj->FlySpeed << std::endl;
-    return print;
-}
 
 std::string Chicken::Serialize() const
 {

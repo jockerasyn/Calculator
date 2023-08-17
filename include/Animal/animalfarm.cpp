@@ -77,6 +77,8 @@ ParseError AnimalFarm::storeToJson(const char *path)
             std::cout << "ERROR := Incorrect directory path" << std::endl;
         else if (err == EmptyFarm)
             std::cout << "ERROR := Farm is empty, nothing to save" << std::endl;
+        else if (err == FileWriteError)
+            std::cout << "ERROR := Error occured during writing into file" << std::endl;
         return err;
     }
 }

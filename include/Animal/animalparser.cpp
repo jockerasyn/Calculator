@@ -78,6 +78,11 @@ void AnimalParser::parsewriter(const std::vector<Animal *> &animals, const char 
         rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
         rapidjson::Writer<rapidjson::FileWriteStream> fwriter(os);
         doc.Accept(fwriter);
+        if (!fwriter.IsComplete())
+        {
+            fclose(fp);
+            throw err = FileWriteError;
+        }
         fclose(fp);
     }
 }
