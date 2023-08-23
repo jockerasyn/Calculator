@@ -1,113 +1,71 @@
 #include <vector>
-#include <iostream>
 #include "Animal/animalfarm.h"
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/writer.h"
 #include "Animal/parsingError.h"
+#include "Digit/digit.h"
+#include <iostream>
+#include <thread>
+#include <future>
+#include <functional>
+#include <array>
 
-int ReadFile(const std::string path, AnimalFarm &animals);
-int SaveFile(const std::string path, AnimalFarm &animals);
-int AddCowToFarm(AnimalFarm &animals, const std::string name, const double weight, const double runspeed);
-int AddChickenToFarm(AnimalFarm &animals, const std::string name, const double weight, const double flyspeed);
+class MyFunctor
+{
+public:
+    MyFunctor() {}
+    MyDigit operator()(MyDigit &num) { return num * 2; }
+};
+
+auto myLambda = [](MyDigit &num)
+{
+    return num + 1;
+};
+
+class increment
+{
+public:
+    increment() {}
+    int operator()(int arr_num) const
+    {
+        return arr_num + 1;
+    }
+};
+
+class sum
+{
+public:
+    // template <std::size_t SIZE>
+    // void operator()(std::array<int, SIZE> &arr, int arrbegin, int arrend)
+    // {
+    //     int sum = 0;
+    //     for (int i = arrbegin; i < arrend; i++)
+    //     {
+    //         sum += arr[i];
+    //     }
+    //     std::cout << sum << " ";
+    // }
+};
 
 int main()
 {
-    std::string path;
-    AnimalFarm animals;
-    ParseError err;
 
-    // json_files/example2.json  <--- correct file path
-    // std::cout << "Enter path: ";
-    // std::cin >> path;
+    // functor test
+    MyDigit a = 3.5;
+    MyFunctor doubler;
+    MyDigit b = doubler(a);
+    std::cout << b << a;
 
-    AnimalFarm an;
-    ReadFile("json_files/example2.json", an);
-    AddCowToFarm(an, "tester1", 600, 10);
-    AddChickenToFarm(an, "tester2", 1, 100);
-    SaveFile("json_files/example5.json", an);
+    // lambda test
+    MyDigit c = myLambda(a);
+    std::cout << c;
 
-    std::cout << std::endl
-              << "success" << std::endl
-              << std::endl;
-}
+    // array operations
+    std::array<int, 10> array;
+    for (int i = 0; i < array.size(); i++)
+        array[i] = i + 1;
 
-int ReadFile(std::string path, AnimalFarm &animals)
-{
-    ParseError err;
-    while (true)
-    {
-        if (path == "exit")
-        {
-            std::cout << "File reading ended with EXIT status";
-            return 0;
-        }
-        else
-        {
-            err = animals.loadFromJson(path.c_str());
-            switch (err)
-            {
-            case NoError:
-                std::cout << "File read succesfuly" << std::endl;
-                return 0;
-                break;
-            case FileNotExist:
-                std::cout << "Enter correct path: ";
-                std::cin >> path;
-                // path = "json_files/example2.json";
-                // std::cout << path << std::endl;
-                break;
-            case IncorrectFormat:
-                std::cout << "Enter path to correct file: ";
-                std::cin >> path;
-                // path = "json_files/example21.json";
-                // std::cout << path << std::endl;
-                break;
-            default:
-                std::cout << "Unknown Error";
-                exit(0);
-            }
-        }
-    }
-    return 0;
-}
-int SaveFile(std::string path, AnimalFarm &animals)
-{
-    ParseError err;
-    while (true)
-    {
-        err = animals.storeToJson(path.c_str());
-        switch (err)
-        {
-        case NoError:
-            std::cout << "Farm was saved successfully" << std::endl;
-            return 0;
-        case FileWriteError:
-            std::cout << "Something went wrong during saving (file error occured)" << std::endl;
-            return -1;
-        case WritingError:
-            std::cout << "Something went wrong during saving" << std::endl;
-            return -1;
-        case DirrNotExist:
-            std::cout << "Enter path to correct file: ";
-            std::cin >> path;
-            break;
-        case EmptyFarm:
-            std::cout << "Farm is empty (add some animals before saving)" << std::endl;
-            return -1;
-        default:
-            std::cout << "Unknown Error";
-            exit(0);
-        }
-    }
-    return 0;
-}
-int AddCowToFarm(AnimalFarm &animals, const std::string name, const double weight, const double runspeed)
-{
-    animals.addAnimal(new Cow(name, weight, runspeed));
-    return 0;
-}
-int AddChickenToFarm(AnimalFarm &animals, const std::string name, const double weight, const double flyspeed)
-{
-    animals.addAnimal(new Chicken(name, weight, flyspeed));
-    return 0;
+    std::thread t1(sum(), array, 0, round(array.size() / 2) + 1);
+    // int sum2 = sum_of_arr(array, round(array.size() / 2) + 1, array.size());
+    // std::cout << sum1 << " " << sum2;
 }
