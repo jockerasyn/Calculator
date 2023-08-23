@@ -5,12 +5,10 @@
 #include "Animal/parsingError.h"
 #include "Digit/digit.h"
 #include <iostream>
-#include <thread>
-#include <future>
 #include <functional>
 #include <array>
 #include <mutex>
-#include <future>
+#include "Threads/threads.h"
 
 // global mutex
 std::mutex myMutex;
@@ -41,24 +39,8 @@ public:
     }
 };
 
-class sum_of_arr_async
-{
-public:
-    int operator()(std::array<int, 10> arr, int arrbegin, int arrend)
-    {
-        int sum = 0;
-        for (int i = arrbegin; i < arrend; i++)
-        {
-            sum += arr[i];
-        }
-        std::cout << "sum for task = " << sum << std::endl;
-        return sum;
-    }
-};
-
 int main()
 {
-
     // functor test
     MyDigit a = 3.5;
     MyFunctor doubler;
@@ -74,13 +56,15 @@ int main()
     for (int i = 0; i < array.size(); i++)
         array[i] = i + 1;
 
-    // thread with
+    // threads with mutex
     int sum = 0;
     std::thread t1(sum_of_arr_thread(), array, 0, int(round(array.size() / 2) + 1), std::ref(sum));
     std::thread t2(sum_of_arr_thread(), array, int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
     t1.join();
     t2.join();
     std::cout << "sum of array elements = " << sum << std::endl;
+
+    // threads without mutex
     auto f1 = std::async(sum_of_arr_async(), array, 0, int(round(array.size() / 2) + 1));
     auto f2 = std::async(sum_of_arr_async(), array, int(round(array.size() / 2) + 1), int(array.size()));
     int sum1 = f1.get();

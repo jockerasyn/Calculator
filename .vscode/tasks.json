@@ -11,6 +11,7 @@
                 "${workspaceFolder}/*.cpp",
                 "${workspaceFolder}/include/Digit/*.cpp",
                 "${workspaceFolder}/include/Animal/*.cpp",
+                "${workspaceFolder}/include/Threads/*.h",
                 "-o",
                 "${workspaceFolder}test.exe"
             ],
