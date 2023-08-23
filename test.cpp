@@ -12,6 +12,7 @@
 
 // global mutex
 std::mutex myMutex;
+std::mutex readMutex;
 
 class MyFunctor
 {
@@ -23,20 +24,6 @@ public:
 auto myLambda = [](MyDigit &num)
 {
     return num + 1;
-};
-
-class sum_of_arr_thread
-{
-public:
-    void operator()(std::array<int, 10> arr, int arrbegin, int arrend, int &sum)
-    {
-        std::lock_guard<std::mutex> guard(myMutex);
-        for (int i = arrbegin; i < arrend; i++)
-        {
-            sum += arr[i];
-        }
-        std::cout << "value after every thread: " << sum << std::endl;
-    }
 };
 
 int main()
@@ -58,16 +45,24 @@ int main()
 
     // threads with mutex
     int sum = 0;
-    std::thread t1(sum_of_arr_thread(), array, 0, int(round(array.size() / 2) + 1), std::ref(sum));
-    std::thread t2(sum_of_arr_thread(), array, int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
+    std::thread t1(sum_of_arr_thread(), std::ref(array), 0, int(round(array.size() / 2) + 1), std::ref(sum));
+    std::thread t2(sum_of_arr_thread(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
     t1.join();
     t2.join();
     std::cout << "sum of array elements = " << sum << std::endl;
 
     // threads without mutex
-    auto f1 = std::async(sum_of_arr_async(), array, 0, int(round(array.size() / 2) + 1));
-    auto f2 = std::async(sum_of_arr_async(), array, int(round(array.size() / 2) + 1), int(array.size()));
+    auto f1 = std::async(sum_of_arr_async(), std::ref(array), 0, int(round(array.size() / 2) + 1));
+    auto f2 = std::async(sum_of_arr_async(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()));
     int sum1 = f1.get();
     int sum2 = f2.get();
     std::cout << "result of sum = " << sum1 + sum2 << std::endl;
+
+    std::thread t3(filereader(), "txt_files/text1.txt");
+    std::thread t4(filereader(), "txt_files/text2.txt");
+    std::thread t5(filereader(), "txt_files/text3.txt");
+
+    t3.join();
+    t4.join();
+    t5.join();
 }
