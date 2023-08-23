@@ -50,9 +50,11 @@ int main()
     std::future<int> sum2_return = sum2_promise.get_future();
     std::thread t1(sum_of_arr_thread(), std::ref(array), 0, int(round(array.size() / 2) + 1), std::move(sum1_promise));
     std::thread t2(sum_of_arr_thread(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()), std::move(sum2_promise));
+    sum1_return.wait();
+    sum2_return.wait(); // read about atomic
+    std::cout << "sum of array elements = " << sum1_return.get() + sum2_return.get() << std::endl;
     t1.join();
     t2.join();
-    std::cout << "sum of array elements = " << sum1_return.get() + sum2_return.get() << std::endl;
 
     // threads with reading files
     std::thread t3(filereader(), "txt_files/text1.txt");

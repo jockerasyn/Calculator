@@ -9,21 +9,6 @@
 
 extern std::mutex readMutex;
 
-class sum_of_arr_async
-{
-public:
-    int operator()(std::array<int, 10> &arr, int arrbegin, int arrend)
-    {
-        int sum = 0;
-        for (int i = arrbegin; i < arrend; i++)
-        {
-            sum += arr[i];
-        }
-        std::cout << "sum for task = " << sum << std::endl;
-        return sum;
-    }
-};
-
 class sum_of_arr_thread
 {
 public:
@@ -31,9 +16,7 @@ public:
     {
         int sum = 0;
         for (int i = arrbegin; i < arrend; i++)
-        {
             sum += arr[i];
-        }
         sum_promise.set_value(sum);
     }
 };
