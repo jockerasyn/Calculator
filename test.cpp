@@ -9,6 +9,11 @@
 #include <future>
 #include <functional>
 #include <array>
+#include <mutex>
+#include <future>
+
+// global mutex
+std::mutex myMutex;
 
 class MyFunctor
 {
@@ -22,29 +27,19 @@ auto myLambda = [](MyDigit &num)
     return num + 1;
 };
 
-class increment
+class sum_of_arr
 {
+private:
 public:
-    increment() {}
-    int operator()(int arr_num) const
+    void operator()(std::array<int, 10> arr, int arrbegin, int arrend, int &sum)
     {
-        return arr_num + 1;
+        std::lock_guard<std::mutex> guard(myMutex);
+        for (int i = arrbegin; i < arrend; i++)
+        {
+            sum += arr[i];
+        }
+        std::cout << "value after every thread: " << sum << std::endl;
     }
-};
-
-class sum
-{
-public:
-    // template <std::size_t SIZE>
-    // void operator()(std::array<int, SIZE> &arr, int arrbegin, int arrend)
-    // {
-    //     int sum = 0;
-    //     for (int i = arrbegin; i < arrend; i++)
-    //     {
-    //         sum += arr[i];
-    //     }
-    //     std::cout << sum << " ";
-    // }
 };
 
 int main()
@@ -65,7 +60,10 @@ int main()
     for (int i = 0; i < array.size(); i++)
         array[i] = i + 1;
 
-    std::thread t1(sum(), array, 0, round(array.size() / 2) + 1);
-    // int sum2 = sum_of_arr(array, round(array.size() / 2) + 1, array.size());
-    // std::cout << sum1 << " " << sum2;
+    int sum = 0;
+    std::thread t1(sum_of_arr(), array, 0, int(round(array.size() / 2) + 1), std::ref(sum));
+    std::thread t2(sum_of_arr(), array, int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
+    t1.join();
+    t2.join();
+    std::cout << "sum of array elements = " << sum << std::endl;
 }
