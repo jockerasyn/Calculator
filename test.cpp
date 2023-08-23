@@ -58,10 +58,10 @@ int main()
     int sum2 = f2.get();
     std::cout << "result of sum = " << sum1 + sum2 << std::endl;
 
+    // threads with reading files
     std::thread t3(filereader(), "txt_files/text1.txt");
     std::thread t4(filereader(), "txt_files/text2.txt");
     std::thread t5(filereader(), "txt_files/text3.txt");
-
     t3.join();
     t4.join();
     t5.join();
