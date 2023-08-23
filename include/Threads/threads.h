@@ -7,7 +7,6 @@
 #include <string>
 #include <sstream>
 
-extern std::mutex myMutex;
 extern std::mutex readMutex;
 
 class sum_of_arr_async
@@ -28,14 +27,14 @@ public:
 class sum_of_arr_thread
 {
 public:
-    void operator()(std::array<int, 10> &arr, int arrbegin, int arrend, int &sum)
+    void operator()(std::array<int, 10> &arr, int arrbegin, int arrend, std::promise<int> sum_promise)
     {
-        std::lock_guard<std::mutex> guard(myMutex);
+        int sum = 0;
         for (int i = arrbegin; i < arrend; i++)
         {
             sum += arr[i];
         }
-        std::cout << "value after every thread: " << sum << std::endl;
+        sum_promise.set_value(sum);
     }
 };
 

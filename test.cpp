@@ -44,19 +44,15 @@ int main()
         array[i] = i + 1;
 
     // threads with mutex
-    int sum = 0;
-    std::thread t1(sum_of_arr_thread(), std::ref(array), 0, int(round(array.size() / 2) + 1), std::ref(sum));
-    std::thread t2(sum_of_arr_thread(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
+    std::promise<int> sum1_promise;
+    std::promise<int> sum2_promise;
+    std::future<int> sum1_return = sum1_promise.get_future();
+    std::future<int> sum2_return = sum2_promise.get_future();
+    std::thread t1(sum_of_arr_thread(), std::ref(array), 0, int(round(array.size() / 2) + 1), std::move(sum1_promise));
+    std::thread t2(sum_of_arr_thread(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()), std::move(sum2_promise));
     t1.join();
     t2.join();
-    std::cout << "sum of array elements = " << sum << std::endl;
-
-    // threads without mutex
-    auto f1 = std::async(sum_of_arr_async(), std::ref(array), 0, int(round(array.size() / 2) + 1));
-    auto f2 = std::async(sum_of_arr_async(), std::ref(array), int(round(array.size() / 2) + 1), int(array.size()));
-    int sum1 = f1.get();
-    int sum2 = f2.get();
-    std::cout << "result of sum = " << sum1 + sum2 << std::endl;
+    std::cout << "sum of array elements = " << sum1_return.get() + sum2_return.get() << std::endl;
 
     // threads with reading files
     std::thread t3(filereader(), "txt_files/text1.txt");
