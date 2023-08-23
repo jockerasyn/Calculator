@@ -27,9 +27,8 @@ auto myLambda = [](MyDigit &num)
     return num + 1;
 };
 
-class sum_of_arr
+class sum_of_arr_thread
 {
-private:
 public:
     void operator()(std::array<int, 10> arr, int arrbegin, int arrend, int &sum)
     {
@@ -39,6 +38,21 @@ public:
             sum += arr[i];
         }
         std::cout << "value after every thread: " << sum << std::endl;
+    }
+};
+
+class sum_of_arr_async
+{
+public:
+    int operator()(std::array<int, 10> arr, int arrbegin, int arrend)
+    {
+        int sum = 0;
+        for (int i = arrbegin; i < arrend; i++)
+        {
+            sum += arr[i];
+        }
+        std::cout << "sum for task = " << sum << std::endl;
+        return sum;
     }
 };
 
@@ -55,15 +69,21 @@ int main()
     MyDigit c = myLambda(a);
     std::cout << c;
 
-    // array operations
+    // array operations - for next task
     std::array<int, 10> array;
     for (int i = 0; i < array.size(); i++)
         array[i] = i + 1;
 
+    // thread with
     int sum = 0;
-    std::thread t1(sum_of_arr(), array, 0, int(round(array.size() / 2) + 1), std::ref(sum));
-    std::thread t2(sum_of_arr(), array, int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
+    std::thread t1(sum_of_arr_thread(), array, 0, int(round(array.size() / 2) + 1), std::ref(sum));
+    std::thread t2(sum_of_arr_thread(), array, int(round(array.size() / 2) + 1), int(array.size()), std::ref(sum));
     t1.join();
     t2.join();
     std::cout << "sum of array elements = " << sum << std::endl;
+    auto f1 = std::async(sum_of_arr_async(), array, 0, int(round(array.size() / 2) + 1));
+    auto f2 = std::async(sum_of_arr_async(), array, int(round(array.size() / 2) + 1), int(array.size()));
+    int sum1 = f1.get();
+    int sum2 = f2.get();
+    std::cout << "result of sum = " << sum1 + sum2 << std::endl;
 }
