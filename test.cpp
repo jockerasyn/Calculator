@@ -53,8 +53,8 @@ int main()
         sum1_return.wait();
         sum2_return.wait();
         std::cout << "sum of array with promise = " << sum1_return.get() + sum2_return.get() << std::endl;
-        t1.join();
-        t2.join();
+        t1.detach();
+        t2.detach();
     }
 
     {
@@ -70,8 +70,8 @@ int main()
                 break;
             }
         }
-        t1.join();
-        t2.join();
+        t1.detach();
+        t2.detach();
     }
 
     // threads with reading files
