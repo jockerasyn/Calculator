@@ -1,3 +1,5 @@
+#ifndef _THREAD_H_
+#define _THREAD_H_
 #include <thread>
 #include <future>
 #include <array>
@@ -6,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <atomic>
 
 extern std::mutex readMutex;
 
@@ -18,6 +21,17 @@ public:
         for (int i = arrbegin; i < arrend; i++)
             sum += arr[i];
         sum_promise.set_value(sum);
+    }
+};
+
+class sum_of_arr_atomic
+{
+public:
+    void operator()(std::array<int, 10> &arr, int arrbegin, int arrend, std::atomic_int &sum, std::atomic_int &th_info)
+    {
+        for (int i = arrbegin; i < arrend; i++)
+            sum += arr[i];
+        th_info += 1;
     }
 };
 
@@ -39,3 +53,4 @@ public:
                   << sentence.str() << std::endl;
     }
 };
+#endif
