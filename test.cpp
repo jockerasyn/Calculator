@@ -28,7 +28,7 @@ int main()
         if (f.valid())
         {
             f.wait();
-            std::cout << f.get() << std::endl;
+            std::cout << f.get() << " ";
         }
     }
     return 0;
