@@ -41,7 +41,7 @@ bool ThreadPool::PoolWorking()
     bool if_busy = false;
     {
         std::unique_lock<std::mutex> lock(pool_mutex);
-        bool poolbif_busyusy = !task_queue.empty();
+        if_busy = !task_queue.empty();
     }
     return if_busy;
 }
