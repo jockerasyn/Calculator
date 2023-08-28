@@ -7,13 +7,15 @@
 
 void example_function()
 {
-    std::cout << "ble" << std::endl;
+    std::cout << "ble"
+              << "bla"
+              << "blu" << std::endl;
 }
 
 main()
 {
     ThreadPool mypool(10);
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 200; i++)
     {
         // std::packaged_task<void()> task(example_function);
         // mypool.AddTask(std::move(task));

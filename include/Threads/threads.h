@@ -64,6 +64,7 @@ private:
     std::vector<std::thread> pool_of_threads;
     std::queue<std::function<void()>> task_queue;
     std::mutex pool_mutex;
+    std::mutex condition_mutex;
     std::condition_variable pool_condition;
     bool finish_searching_for_task;
     // loop for threads to let them search for tasks
@@ -73,13 +74,16 @@ private:
         while (true)
         {
             {
-                std::unique_lock<std::mutex> lock(pool_mutex);
-                pool_condition.wait(lock, [this]
-                                    { return !task_queue.empty() || finish_searching_for_task; });
+                {
+                    std::unique_lock<std::mutex> lock(condition_mutex);
+                    pool_condition.wait(lock, [this]
+                                        { return !task_queue.empty() || finish_searching_for_task; });
+                }
                 if (finish_searching_for_task && task_queue.empty())
                 {
                     return;
                 }
+                std::unique_lock<std::mutex> lock(pool_mutex);
                 task = task_queue.front();
                 task_queue.pop();
             }
