@@ -62,39 +62,40 @@ class ThreadPool
 {
 private:
     std::vector<std::thread> pool_of_threads;
-    std::queue<std::function<void()>> task_queue;
+    std::queue<std::packaged_task<void()>> task_queue;
     std::mutex pool_mutex;
     std::condition_variable pool_condition;
     bool finish_searching_for_task;
     // loop for threads to let them search for tasks
     void LoopForTP()
     {
-        std::function<void()> task;
+        std::packaged_task<void()> task;
         while (true)
         {
+            std::unique_lock<std::mutex> lock(pool_mutex);
+            pool_condition.wait(lock, [this]
+                                { return !task_queue.empty() || finish_searching_for_task; });
+            if (finish_searching_for_task)
             {
-                std::unique_lock<std::mutex> lock(pool_mutex);
-                pool_condition.wait(lock, [this]
-                                    { return !task_queue.empty() || finish_searching_for_task; });
-                if (finish_searching_for_task && task_queue.empty())
-                {
-                    return;
-                }
-                task = task_queue.front();
-                task_queue.pop();
+                return;
             }
+            // here i have a problem <------------------------------------------------------------------HERE
+            task = std::move(task_queue.front());
+            task_queue.pop();
+            lock.unlock();
+            auto future = task.get_future();
             task();
         }
     }
 
 public:
-    ThreadPool(int number_of_threads) : finish_searching_for_task(false)
+    ThreadPool(int number_of_threads) : pool_of_threads(), task_queue(), pool_mutex(), pool_condition(), finish_searching_for_task(false)
     {
         for (int i = 0; i < number_of_threads; i++)
             pool_of_threads.emplace_back(std::thread(&ThreadPool::LoopForTP, this));
     }
     ~ThreadPool() {}
-    void AddTask(const std::function<void()> &task)
+    void AddTask(const std::packaged_task<void()> &task)
     {
         {
             std::unique_lock<std::mutex> lock(pool_mutex);
@@ -102,6 +103,7 @@ public:
         }
         pool_condition.notify_one();
     }
+    /*
     bool PoolWorking()
     {
         bool if_busy = false;
@@ -111,6 +113,7 @@ public:
         }
         return if_busy;
     }
+    */
     void EndPool()
     {
         {
