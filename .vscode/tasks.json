@@ -13,7 +13,7 @@
                 "${workspaceFolder}/include/Animal/*.cpp",
                 "${workspaceFolder}/include/Threads/*.cpp",
                 "-o",
-                "${workspaceFolder}test.exe"
+                "${workspaceFolder}/test.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
