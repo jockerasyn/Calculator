@@ -3,7 +3,6 @@
 
 #include <thread>
 #include <future>
-#include <iostream>
 #include <mutex>
 #include <queue>
 #include <cassert>
