@@ -61,8 +61,10 @@ void threadpool_with_function()
         fpool.AddTask(task2);
         fpool.AddTask(task3);
     }
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-
+    while (fpool.PoolWorking())
+    {
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     std::vector<int> results = fpool.GetResults();
     for (int &result : results)
     {
