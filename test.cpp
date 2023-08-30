@@ -18,7 +18,7 @@ void threadpool_with_p_task();
 int main()
 {
     threadpool_with_p_task();
-    // threadpool_with_function();
+    threadpool_with_function();
     return 0;
 }
 
@@ -51,6 +51,7 @@ int example5(int a)
 void threadpool_with_function()
 {
     ThreadPool_F fpool(10);
+    std::cout << "threadpool with function\n";
     for (int i = 0; i < 50; i++)
     {
         std::function<int()> task1 = std::bind(example21, 1);
@@ -72,12 +73,16 @@ void threadpool_with_function()
 void threadpool_with_p_task()
 {
     ThreadPool mypool(10);
+    std::cout << "threadpool with packaged_task\n";
     std::vector<std::future<int>> result;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 50; i++)
     {
         std::packaged_task<int()> task(std::bind(example2, 7, 77));
         result.push_back(task.get_future());
         mypool.AddTask(std::move(task));
+        std::packaged_task<int()> task2(std::bind(example2, 2, 6));
+        result.push_back(task2.get_future());
+        mypool.AddTask(std::move(task2));
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
