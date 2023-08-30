@@ -60,12 +60,6 @@ void ThreadPool_F::AddTask(std::function<int()> task)
     pool_condition.notify_one();
 }
 
-bool ThreadPool_F::PoolWorking()
-{
-    std::unique_lock<std::mutex> lock(condition_mutex);
-    return !task_queue.empty();
-}
-
 void ThreadPool_F::EndPool()
 {
     {
