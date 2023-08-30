@@ -27,7 +27,6 @@ public:
     ThreadPool(int number_of_threads);
     ~ThreadPool();
     void AddTask(std::packaged_task<int()> task);
-
     bool PoolWorking();
     void EndPool();
 };

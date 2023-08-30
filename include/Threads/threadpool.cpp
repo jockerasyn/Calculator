@@ -2,9 +2,9 @@
 
 void ThreadPool::LoopForTP()
 {
+    std::packaged_task<int()> task;
     while (true)
     {
-        std::packaged_task<int()> task;
         {
             std::unique_lock<std::mutex> lock(condition_mutex);
             pool_condition.wait(lock, [this]
@@ -48,6 +48,12 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
             pool_condition.notify_all();
         }
     }
+}
+
+bool ThreadPool::PoolWorking()
+{
+    std::unique_lock<std::mutex> lock(pool_mutex);
+    return !task_queue.empty();
 }
 
 void ThreadPool::EndPool()
