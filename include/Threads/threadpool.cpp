@@ -50,11 +50,11 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
     }
 }
 
-// bool ThreadPool::PoolWorking()
-// {
-//     std::unique_lock<std::mutex> lock(pool_mutex);
-//     return !task_queue.empty();
-// }
+bool ThreadPool::PoolWorking()
+{
+    std::unique_lock<std::mutex> lock(pool_mutex);
+    return !task_queue.empty();
+}
 
 void ThreadPool::EndPool()
 {

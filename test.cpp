@@ -52,7 +52,7 @@ void threadpool_with_function()
 {
     ThreadPool_F fpool(10);
     std::cout << "threadpool with function\n";
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 500; i++)
     {
         std::function<int()> task1 = std::bind(example21, 1);
         std::function<int()> task2 = std::bind(example5, i);
