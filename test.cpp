@@ -5,6 +5,7 @@
 #include "Digit/digit.h"
 #include "Threads/threadpool.h"
 #include "Threads/threadpool_f.h"
+#include <iostream>
 
 int example2(int a, int b);
 int example21(int a);
@@ -21,7 +22,6 @@ int main()
     {
         std::packaged_task<int()> task(std::bind(example2, 7, 77));
         result.push_back(task.get_future());
-        std::cerr << "task added\n";
         mypool.AddTask(std::move(task));
     }
 
