@@ -11,7 +11,6 @@
 #include <functional>
 #include <vector>
 #include <atomic>
-#include <chrono>
 
 class ThreadPool
 {

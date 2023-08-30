@@ -17,21 +17,21 @@ int main()
 {
     ThreadPool mypool(10);
     std::vector<std::future<int>> result;
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 100; i++)
     {
         std::packaged_task<int()> task(std::bind(example2, 7, 77));
         result.push_back(task.get_future());
+        std::cerr << "task added\n";
         mypool.AddTask(std::move(task));
     }
 
-    // mypool.EndPool();
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
     for (int i = 0; i < result.size(); i++)
     {
         std::cout << result[i].get() << "\n";
     }
-
+    mypool.EndPool();
     return 0;
 }
 

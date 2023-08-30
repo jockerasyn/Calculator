@@ -42,19 +42,19 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
     {
         std::unique_lock<std::mutex> lock(pool_mutex);
         task_queue.push(std::move(task));
-    }
-    {
-        std::unique_lock<std::mutex> lock(condition_mutex);
-        condition_wait = true;
-        pool_condition.notify_one();
+        {
+            std::unique_lock<std::mutex> lock(condition_mutex);
+            condition_wait = true;
+            pool_condition.notify_one();
+        }
     }
 }
 
-bool ThreadPool::PoolWorking()
-{
-    std::unique_lock<std::mutex> lock(pool_mutex);
-    return !task_queue.empty();
-}
+// bool ThreadPool::PoolWorking()
+// {
+//     std::unique_lock<std::mutex> lock(pool_mutex);
+//     return !task_queue.empty();
+// }
 
 void ThreadPool::EndPool()
 {
