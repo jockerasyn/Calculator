@@ -18,7 +18,7 @@ void threadpool_with_p_task();
 int main()
 {
     threadpool_with_p_task();
-    threadpool_with_function();
+    // threadpool_with_function();
     return 0;
 }
 
@@ -85,7 +85,7 @@ void threadpool_with_p_task()
         mypool.AddTask(std::move(task));
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::this_thread::sleep_for(std::chrono::seconds(2));
     std::cout << mypool.PoolWorking() << std::endl;
 
     for (int i = 0; i < result.size(); i++)

@@ -8,7 +8,7 @@ void ThreadPool::LoopForTP()
         {
             std::unique_lock<std::mutex> lock(condition_mutex);
             pool_condition.wait(lock, [this]
-                                { return condition_wait || finish_searching_for_task; });
+                                { return condition_wait; });
             condition_wait = false;
         }
         if (finish_searching_for_task && task_queue.empty())
@@ -42,12 +42,12 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
     {
         std::unique_lock<std::mutex> lock(pool_mutex);
         task_queue.push(std::move(task));
-        {
-            std::unique_lock<std::mutex> lock(condition_mutex);
-            condition_wait = true;
-            pool_condition.notify_all();
-        }
     }
+    {
+        std::lock_guard<std::mutex> lock(condition_mutex);
+        condition_wait = true;
+    }
+    pool_condition.notify_all();
 }
 
 bool ThreadPool::PoolWorking()
@@ -59,7 +59,7 @@ bool ThreadPool::PoolWorking()
 void ThreadPool::EndPool()
 {
     {
-        std::unique_lock<std::mutex> lock(condition_mutex);
+        std::lock_guard<std::mutex> lock(condition_mutex);
         finish_searching_for_task = true;
         condition_wait = true;
     }
@@ -68,5 +68,6 @@ void ThreadPool::EndPool()
     {
         thread.join();
     }
+    std::unique_lock<std::mutex> lock(pool_mutex);
     pool_of_threads.clear();
 }
