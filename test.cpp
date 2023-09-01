@@ -85,12 +85,11 @@ void threadpool_with_p_task()
         mypool.AddTask(std::move(task));
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     std::cout << mypool.PoolWorking() << std::endl;
-
-    for (int i = 0; i < result.size(); i++)
-    {
-        std::cout << result[i].get() << "\n";
-    }
+    // for (int i = 0; i < result.size(); i++)
+    // {
+    //     std::cout << result[i].get() << "\n";
+    // }
     mypool.EndPool();
 }
