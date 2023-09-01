@@ -28,27 +28,28 @@ void setDataReady()
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 }
 
-// int main()
-// {
+int main1()
+{
 
-//     std::cout << std::endl;
+    std::cout << std::endl;
 
-//     std::thread t11(waitingForWork); // (1)
-//     std::thread t12(waitingForWork);
-//     std::thread t13(waitingForWork);
-//     std::thread t14(waitingForWork);
-//     std::thread t21(setDataReady); // (2)
-//     std::thread t22(setDataReady);
-//     std::thread t23(setDataReady);
-//     std::thread t24(setDataReady);
+    std::thread t11(waitingForWork); // (1)
+    std::thread t12(waitingForWork);
+    std::thread t13(waitingForWork);
+    std::thread t14(waitingForWork);
+    std::thread t21(setDataReady); // (2)
+    std::thread t22(setDataReady);
+    std::thread t23(setDataReady);
+    std::thread t24(setDataReady);
 
-//     t11.join();
-//     t12.join();
-//     t13.join();
-//     t14.join();
-//     t21.join();
-//     t22.join();
-//     t23.join();
-//     t24.join();
-//     std::cout << std::endl;
-// }
+    t11.join();
+    t12.join();
+    t13.join();
+    t14.join();
+    t21.join();
+    t22.join();
+    t23.join();
+    t24.join();
+    std::cout << std::endl;
+    return 0;
+}
