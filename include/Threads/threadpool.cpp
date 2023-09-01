@@ -10,6 +10,7 @@ void ThreadPool::LoopForTP()
             pool_condition.wait(lock, [this]
                                 { return condition_wait || finish_searching_for_task; });
             condition_wait = false;
+            adp = false;
         }
         if (finish_searching_for_task && task_queue.empty())
         {
@@ -24,7 +25,7 @@ void ThreadPool::LoopForTP()
     }
 }
 
-ThreadPool::ThreadPool(int number_of_threads) : finish_searching_for_task(false), condition_wait(false)
+ThreadPool::ThreadPool(int number_of_threads) : finish_searching_for_task(false), condition_wait(false), adp(false)
 {
     for (int i = 0; i < number_of_threads; i++)
     {
@@ -39,6 +40,9 @@ ThreadPool::~ThreadPool()
 
 void ThreadPool::AddTask(std::packaged_task<int()> task)
 {
+    while (adp)
+    {
+    }
     {
         std::unique_lock<std::mutex> lock(pool_mutex);
         task_queue.push(std::move(task));
@@ -46,9 +50,9 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
     {
         std::lock_guard<std::mutex> lock(condition_mutex);
         condition_wait = true;
+        adp = true;
     }
     pool_condition.notify_one();
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 }
 
 bool ThreadPool::PoolWorking()

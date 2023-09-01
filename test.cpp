@@ -33,22 +33,22 @@ void threadpool_with_p_task()
         result.push_back(task.get_future());
         mypool.AddTask(std::move(task));
     }
-    for (int i = 0; i < 100; i++)
-    {
-        std::packaged_task<int()> task(std::bind(example2, 7, 77));
-        result.push_back(task.get_future());
-        mypool.AddTask(std::move(task));
-    }
-    for (int i = 0; i < 50; i++)
-    {
-        std::packaged_task<int()> task(std::bind(example3, 7, 77));
-        result.push_back(task.get_future());
-        mypool.AddTask(std::move(task));
-    }
-    while (mypool.PoolWorking())
-    {
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // for (int i = 0; i < 100; i++)
+    // {
+    //     std::packaged_task<int()> task(std::bind(example2, 7, 77));
+    //     result.push_back(task.get_future());
+    //     mypool.AddTask(std::move(task));
+    // }
+    // for (int i = 0; i < 50; i++)
+    // {
+    //     std::packaged_task<int()> task(std::bind(example3, 7, 77));
+    //     result.push_back(task.get_future());
+    //     mypool.AddTask(std::move(task));
+    // }
+    // while (mypool.PoolWorking())
+    // {
+    // }
+    std::this_thread::sleep_for(std::chrono::seconds(2));
     for (int i = 0; i < result.size(); i++)
     {
         std::cout << result[i].get() << " ";

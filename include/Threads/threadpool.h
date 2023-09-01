@@ -21,6 +21,7 @@ private:
     std::condition_variable pool_condition;
     bool finish_searching_for_task;
     bool condition_wait;
+    bool adp;
     void LoopForTP();
 
 public:
