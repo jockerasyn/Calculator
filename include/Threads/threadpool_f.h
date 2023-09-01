@@ -20,7 +20,8 @@ private:
     std::mutex pool_mutex;
     std::mutex condition_mutex;
     std::condition_variable pool_condition;
-    std::atomic<bool> finish_searching_for_task;
+    bool finish_searching_for_task;
+    bool adpv;
     std::mutex result_mutex;
 
     void LoopForTP();

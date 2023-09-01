@@ -6,6 +6,7 @@
 #include "Threads/threadpool.h"
 #include "Threads/threadpool_f.h"
 #include <iostream>
+#include <ctime>
 
 int example2(int a, int b);
 int example21(int a);
@@ -17,8 +18,12 @@ void threadpool_with_p_task();
 
 int main()
 {
-    threadpool_with_p_task();
-    // threadpool_with_function();
+    time_t tstart, tend;
+    tstart = time(0);
+    // threadpool_with_p_task();
+    threadpool_with_function();
+    tend = time(0);
+    std::cout << "It took " << difftime(tend, tstart) << " second(s)." << std::endl;
     return 0;
 }
 
@@ -61,15 +66,12 @@ void threadpool_with_function()
         fpool.AddTask(task2);
         fpool.AddTask(task3);
     }
-    while (fpool.PoolWorking())
-    {
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::seconds(2));
     std::vector<int> results = fpool.GetResults();
-    for (int &result : results)
-    {
-        std::cout << "Result: " << result << std::endl;
-    }
+    // for (int &result : results)
+    // {
+    //     std::cout << "Result: " << result << std::endl;
+    // }
     fpool.EndPool();
 }
 
@@ -86,7 +88,7 @@ void threadpool_with_p_task()
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    std::cout << mypool.PoolWorking() << std::endl;
+    // std::cout << mypool.PoolWorking() << std::endl;
     for (int i = 0; i < result.size(); i++)
     {
         std::cout << result[i].get() << "\n";

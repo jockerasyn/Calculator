@@ -9,21 +9,19 @@ void ThreadPool_F::LoopForTP()
         {
             std::unique_lock<std::mutex> lock(condition_mutex);
             pool_condition.wait(lock, [this]
-                                { return !task_queue.empty() || finish_searching_for_task.load(); });
+                                { return adpv || finish_searching_for_task; });
+            adpv = false;
         }
 
-        if (finish_searching_for_task.load() && task_queue.empty())
+        if (finish_searching_for_task && task_queue.empty())
         {
             return;
         }
 
         {
             std::unique_lock<std::mutex> lock(pool_mutex);
-            if (!task_queue.empty())
-            {
-                task = std::move(task_queue.front());
-                task_queue.pop();
-            }
+            task = std::move(task_queue.front());
+            task_queue.pop();
         }
 
         if (task)
@@ -57,7 +55,12 @@ void ThreadPool_F::AddTask(std::function<int()> task)
         std::unique_lock<std::mutex> lock(pool_mutex);
         task_queue.push(std::move(task));
     }
+    {
+        std::lock_guard<std::mutex> lock(condition_mutex);
+        adpv = true;
+    }
     pool_condition.notify_one();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 }
 
 bool ThreadPool_F::PoolWorking()
@@ -69,8 +72,8 @@ bool ThreadPool_F::PoolWorking()
 void ThreadPool_F::EndPool()
 {
     {
-        std::unique_lock<std::mutex> lock(condition_mutex);
-        finish_searching_for_task.store(true);
+        std::lock_guard<std::mutex> lock(condition_mutex);
+        finish_searching_for_task = true;
     }
     pool_condition.notify_all();
     for (std::thread &thread : pool_of_threads)
