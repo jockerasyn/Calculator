@@ -8,7 +8,7 @@ void ThreadPool::LoopForTP()
         {
             std::unique_lock<std::mutex> lock(condition_mutex);
             pool_condition.wait(lock, [this]
-                                { return condition_wait; });
+                                { return condition_wait || finish_searching_for_task; });
             condition_wait = false;
         }
         if (finish_searching_for_task && task_queue.empty())
@@ -47,7 +47,8 @@ void ThreadPool::AddTask(std::packaged_task<int()> task)
         std::lock_guard<std::mutex> lock(condition_mutex);
         condition_wait = true;
     }
-    pool_condition.notify_all();
+    pool_condition.notify_one();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 }
 
 bool ThreadPool::PoolWorking()
@@ -61,9 +62,9 @@ void ThreadPool::EndPool()
     {
         std::lock_guard<std::mutex> lock(condition_mutex);
         finish_searching_for_task = true;
-        condition_wait = true;
     }
     pool_condition.notify_all();
+    // std::this_thread::sleep_for(std::chrono::milliseconds(1));
     for (std::thread &thread : pool_of_threads)
     {
         thread.join();
