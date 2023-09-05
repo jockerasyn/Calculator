@@ -48,7 +48,7 @@ void threadpool_with_p_task()
     while (mypool.PoolWorking())
     {
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     for (int i = 0; i < result.size(); i++)
     {
         std::cout << result[i].get() << "\n";

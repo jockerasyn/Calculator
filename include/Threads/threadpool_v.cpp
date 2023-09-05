@@ -67,6 +67,10 @@ void ThreadPoolV::EndPool()
         condition_wait.clear();
         condition_wait.push_back(false);
     }
+    {
+        std::unique_lock<std::mutex> lock(pool_mutex);
+        std::queue<std::packaged_task<int()>>().swap(task_queue);
+    }
     pool_condition.notify_all();
     for (std::thread &thread : pool_of_threads)
     {
