@@ -36,6 +36,8 @@ ThreadPoolV::ThreadPoolV(int number_of_threads) : finish_searching_for_task(fals
 ThreadPoolV::~ThreadPoolV()
 {
     EndPool();
+    std::lock_guard<std::mutex> lock(condition_mutex);
+    condition_wait.clear();
 }
 
 void ThreadPoolV::AddTask(std::packaged_task<int()> task)
@@ -63,6 +65,7 @@ void ThreadPoolV::EndPool()
         std::lock_guard<std::mutex> lock(condition_mutex);
         finish_searching_for_task = true;
         condition_wait.clear();
+        condition_wait.push_back(false);
     }
     pool_condition.notify_all();
     for (std::thread &thread : pool_of_threads)
