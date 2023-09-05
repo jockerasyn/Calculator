@@ -3,7 +3,7 @@
 #include "rapidjson/writer.h"
 #include "Animal/parsingError.h"
 #include "Digit/digit.h"
-#include "Threads/threadpool.h"
+#include "Threads/threadpool_v.h"
 #include <iostream>
 #include <ctime>
 
@@ -24,7 +24,7 @@ int main()
 
 void threadpool_with_p_task()
 {
-    ThreadPool mypool(10);
+    ThreadPoolV mypool(10);
     std::cout << "\nthreadpool with packaged_task begun work\n\n";
     std::vector<std::future<int>> result;
     for (int i = 0; i < 200; i++)
@@ -45,13 +45,13 @@ void threadpool_with_p_task()
     //     result.push_back(task.get_future());
     //     mypool.AddTask(std::move(task));
     // }
-    // while (mypool.PoolWorking())
-    // {
-    // }
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    while (mypool.PoolWorking())
+    {
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     for (int i = 0; i < result.size(); i++)
     {
-        std::cout << result[i].get() << " ";
+        std::cout << result[i].get() << "\n";
     }
     mypool.EndPool();
     std::cout << "\n\nthreadpool with packaged_task finished work\n\n";
