@@ -8,8 +8,7 @@ void ThreadPoolV::LoopForTP()
         {
             std::unique_lock<std::mutex> lock(condition_mutex);
             pool_condition.wait(lock, [this]
-                                { return condition_wait.back() || finish_searching_for_task; });
-            condition_wait.erase(condition_wait.end());
+                                { return (!task_queue.empty() || finish_searching_for_task); });
         }
         if (finish_searching_for_task)
         {
@@ -17,16 +16,22 @@ void ThreadPoolV::LoopForTP()
         }
         {
             std::unique_lock<std::mutex> lock(pool_mutex);
-            task = std::move(task_queue.front());
-            task_queue.pop();
+            if (!task_queue.empty())
+            {
+                task = std::move(task_queue.front());
+                task_queue.pop();
+            }
+            else
+            {
+                continue;
+            }
         }
         task();
     }
 }
 
-ThreadPoolV::ThreadPoolV(int number_of_threads) : finish_searching_for_task(false), condition_wait(false)
+ThreadPoolV::ThreadPoolV(int number_of_threads) : finish_searching_for_task(false)
 {
-    condition_wait.push_back(false);
     for (int i = 0; i < number_of_threads; i++)
     {
         pool_of_threads.emplace_back(&ThreadPoolV::LoopForTP, this);
@@ -37,7 +42,6 @@ ThreadPoolV::~ThreadPoolV()
 {
     EndPool();
     std::lock_guard<std::mutex> lock(condition_mutex);
-    condition_wait.clear();
 }
 
 void ThreadPoolV::AddTask(std::packaged_task<int()> task)
@@ -45,10 +49,6 @@ void ThreadPoolV::AddTask(std::packaged_task<int()> task)
     {
         std::unique_lock<std::mutex> lock(pool_mutex);
         task_queue.push(std::move(task));
-    }
-    {
-        std::lock_guard<std::mutex> lock(condition_mutex);
-        condition_wait.push_back(true);
     }
     pool_condition.notify_one();
 }
@@ -64,8 +64,6 @@ void ThreadPoolV::EndPool()
     {
         std::lock_guard<std::mutex> lock(condition_mutex);
         finish_searching_for_task = true;
-        condition_wait.clear();
-        condition_wait.push_back(false);
     }
     {
         std::unique_lock<std::mutex> lock(pool_mutex);

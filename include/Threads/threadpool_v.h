@@ -20,7 +20,6 @@ private:
     std::mutex condition_mutex;
     std::condition_variable pool_condition;
     bool finish_searching_for_task;
-    std::vector<bool> condition_wait;
     void LoopForTP();
 
 public:
